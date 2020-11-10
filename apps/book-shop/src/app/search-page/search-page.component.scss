@@ -1,0 +1,19 @@
+mat-grid-tile {
+  background: lightslategrey;
+}
+::ng-deep figure.mat-figure {
+  padding: 5px !important;
+  display: block !important;
+  img {
+    width: 15%;
+    float: left;
+    max-width: 70px;
+    margin-left: 15px;
+  }
+
+  h4 {
+    margin: 5px 0;
+    width: 80%;
+    float: left;
+  }
+}

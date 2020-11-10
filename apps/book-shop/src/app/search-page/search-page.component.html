@@ -1,0 +1,15 @@
+<form style="margin:15px" #SearchForm="ngForm" (ngSubmit)="searchSubmit()">
+    <mat-form-field appearance="outline">
+        <mat-label>Search Book</mat-label>
+        <input matInput placeholder="Placeholder" [(ngModel)]="searchTerm" name="searchTerm">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+</form>
+
+<mat-grid-list cols="2" rowHeight="2:1" style="margin: 15px;">
+    <mat-grid-tile *ngFor="let book of booksList" (click)="navigateToDetailsPage(book.id)">
+       <h4>  {{book?.volumeInfo?.title}} </h4>
+       <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
+       <p>{{getDescription(book)}}</p>
+    </mat-grid-tile>  
+</mat-grid-list>
