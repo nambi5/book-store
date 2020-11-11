@@ -98,3 +98,4 @@ export interface PdfOrEpub {
 export interface SearchInfo {
   textSnippet: string;
 }
+

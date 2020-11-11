@@ -8,8 +8,14 @@
 
 <mat-grid-list cols="2" rowHeight="2:1" style="margin: 15px;">
     <mat-grid-tile *ngFor="let book of booksList" (click)="navigateToDetailsPage(book.id)">
-       <h4>  {{book?.volumeInfo?.title}} </h4>
-       <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
-       <p>{{getDescription(book)}}</p>
+        <div class="field-1">
+            <h4>  {{book?.volumeInfo?.title}} </h4>
+            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
+        </div>
+        <div class="field-2">
+            <p>{{getDescription(book)}}</p>
+            <b class="m-0">Written By:</b>
+            <p class="m-0">{{book?.volumeInfo?.authors?.toString()}}</p>
+        </div>
     </mat-grid-tile>  
 </mat-grid-list>

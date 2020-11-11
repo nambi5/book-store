@@ -1,1 +1,23 @@
-<p>book-detail works!</p>
+<section class="book-details">
+    <div class="book-card">
+        <div class="field-1">
+            <h4 class="h4-style" >{{bookDetails?.volumeInfo?.title}}</h4>
+            <img class="img-style" [src]="bookDetails?.volumeInfo?.imageLinks?.thumbnail">
+        </div>
+        <div class="field-2">
+            <b>Rating: <span>{{bookDetails?.volumeInfo?.averageRating}}</span></b>
+            <b>Publisher: <span class="f-weight-normal">{{bookDetails?.volumeInfo?.publisher}}</span></b>
+            <b>Page Count: <span class="f-weight-normal">{{bookDetails?.volumeInfo?.pageCount}}</span></b>
+            <b>Language: <span class="f-weight-normal">{{bookDetails?.volumeInfo?.language}}</span></b>
+        </div>
+        <div class="field-3">
+            <p>{{bookDetails?.volumeInfo?.description}}</p>
+            <b class="m-0">Written By:</b>
+            <p class="m-0">{{bookDetails?.volumeInfo?.authors?.toString()}}</p>
+        </div>
+        <div class="example-button-row">
+               <button  mat-raised-button color="primary" (click)="addIdToCart(bookDetails?.id)">Add to Cart</button> 
+               <button  mat-raised-button color="primary" (click)="buyNow()">Buy Now</button> 
+        </div>
+    </div>
+</section>
