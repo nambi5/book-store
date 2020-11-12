@@ -6,8 +6,8 @@
       </mat-form-field>
 </form>
 
-<mat-grid-list cols="2" rowHeight="2:1" style="margin: 15px;">
-    <mat-grid-tile *ngFor="let book of booksList" (click)="navigateToDetailsPage(book.id)">
+<div class="flex" style="margin: 15px;">
+    <div class="flex-boxes" *ngFor="let book of booksList" (click)="navigateToDetailsPage(book.id)">
         <div class="field-1">
             <h4>  {{book?.volumeInfo?.title}} </h4>
             <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
@@ -17,5 +17,5 @@
             <b class="m-0">Written By:</b>
             <p class="m-0">{{book?.volumeInfo?.authors?.toString()}}</p>
         </div>
-    </mat-grid-tile>  
-</mat-grid-list>
+    </div>  
+</div>

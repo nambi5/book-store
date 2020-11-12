@@ -29,3 +29,11 @@ export const addToCart = createAction(
   '[Book] add book to cart',
   props<{ id: any }>()
 );
+export const addToCollection = createAction(
+  '[Book] add book to purchased List',
+);
+
+export const addBillingDetails = createAction(
+  '[User Info] add Billing Details',
+  props<{ info: any }>()
+);

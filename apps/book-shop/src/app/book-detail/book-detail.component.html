@@ -1,7 +1,7 @@
 <section class="book-details">
     <div class="book-card">
         <div class="field-1">
-            <h4 class="h4-style" >{{bookDetails?.volumeInfo?.title}}</h4>
+            <h4 class="h4-style">{{bookDetails?.volumeInfo?.title}}</h4>
             <img class="img-style" [src]="bookDetails?.volumeInfo?.imageLinks?.thumbnail">
         </div>
         <div class="field-2">
@@ -16,8 +16,9 @@
             <p class="m-0">{{bookDetails?.volumeInfo?.authors?.toString()}}</p>
         </div>
         <div class="example-button-row">
-               <button  mat-raised-button color="primary" (click)="addIdToCart(bookDetails?.id)">Add to Cart</button> 
-               <button  mat-raised-button color="primary" (click)="buyNow()">Buy Now</button> 
+            <button mat-raised-button color="primary" (click)="addIdToCart(bookDetails?.id)"
+             style=" margin-right: 15px;">Add to Cart</button>
+            <button mat-raised-button color="primary" (click)="buyNow()">Buy Now</button>
         </div>
     </div>
 </section>

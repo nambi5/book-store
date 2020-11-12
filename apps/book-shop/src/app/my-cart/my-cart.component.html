@@ -1,1 +1,16 @@
-<p>my-cart works!</p>
+<div class="flex" style="margin: 15px;">
+    <div class="flex-boxes" *ngFor="let book of booksList" >
+        <div class="field-1">
+            <h4>  {{book?.volumeInfo?.title}} </h4>
+            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
+        </div>
+        <div class="field-2">
+            <p>{{getDescription(book)}}</p>
+            <b class="m-0">Written By:</b>
+            <p class="m-0">{{book?.volumeInfo?.authors?.toString()}}</p>
+        </div>
+    </div>
+    <div class="example-button-row" >
+        <button mat-raised-button color="primary">Proceed to purchase</button>  
+    </div>
+</div>
