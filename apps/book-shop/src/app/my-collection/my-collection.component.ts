@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { collectionItems } from '../state/selectors/book.selectors';
-
+import { collectionItems } from '../store/selectors/book.selectors';
+import { collectionItemsFeatureKey } from '../store/reducers/collection-item.reducer';
 @Component({
   selector: 'book-store-my-collection',
   templateUrl: './my-collection.component.html',
@@ -10,7 +10,7 @@ import { collectionItems } from '../state/selectors/book.selectors';
 export class MyCollectionComponent implements OnInit {
 
   booksList: any;
-  constructor(private store: Store) { }
+  constructor(private store: Store<{collectionItemsFeatureKey: any}>) { }
 
   ngOnInit(): void {
     this.store.select(collectionItems).subscribe(

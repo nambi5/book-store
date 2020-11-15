@@ -20,8 +20,9 @@ import { AppComponent } from './app.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { environment } from '../environments/environment';
-import * as fromBook from './state/reducers/book.reducer';
-import { BookEffects } from './state/effects/book.effects';
+import * as fromBook from './store/reducers/book.reducer';
+import { reducers, metaReducers } from './store/reducers';
+import { BookEffects } from './store/effects/book.effects';
 import { BillingInfoComponent } from './billing-info/billing-info.component';
 import { MyCartComponent } from './my-cart/my-cart.component';
 import { MyCollectionComponent } from './my-collection/my-collection.component';
@@ -65,10 +66,10 @@ const routes: Routes = [
         },
       }
     ),
-    EffectsModule.forRoot([BookEffects]),
+    StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([BookEffects]),
     StoreRouterConnectingModule.forRoot(),
-    StoreModule.forFeature(fromBook.bookFeatureKey, fromBook.reducer),
   ],
   providers: [],
   bootstrap: [AppComponent],

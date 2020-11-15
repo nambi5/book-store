@@ -1,12 +1,15 @@
 <ul class="list-side-nav">
-    <li routerLink="/"> 
-        <span class="material-icons"> search </span>  Search
+    <li routerLink="/">
+        <span class="material-icons"> search </span>
+        Search
     </li>
-    <li routerLink="cart"> 
-        <span class="material-icons"> add_shopping_cart </span>  Cart 
+    <li routerLink="cart">
+        <span class="material-icons"> add_shopping_cart </span>
+        <span class="pop-over" *ngIf="cartLength !== '0'">{{cartLength}}</span>
+        Cart
     </li>
     <li routerLink="collection">
-          <span class="material-icons">
-        collections_bookmark
-        </span> My Collection</li>
+        <span class="material-icons"> collections_bookmark </span>
+        My Collection
+    </li>
 </ul>

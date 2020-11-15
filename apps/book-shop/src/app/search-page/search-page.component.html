@@ -7,7 +7,7 @@
 </form>
 
 <div class="flex" style="margin: 15px;">
-    <div class="flex-boxes" *ngFor="let book of booksList" (click)="navigateToDetailsPage(book.id)">
+    <div class="flex-boxes" *ngFor="let book of booksList" (click)="navigateToDetailsPage(book)">
         <div class="field-1">
             <h4>  {{book?.volumeInfo?.title}} </h4>
             <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">

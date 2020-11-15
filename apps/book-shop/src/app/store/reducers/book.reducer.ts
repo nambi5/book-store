@@ -1,24 +1,23 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import { ItemsEntity } from '../../models/book-search.model';
 import { BillingDetails } from '../../models/user-details.model';
 import * as bookAction from '../actions/book.actions';
+import { cartItemState, CartItemState } from '../reducers/cart-item.reducer';
+import { collectionItemState, CollectionItemState } from '../reducers/collection-item.reducer';
 export const bookFeatureKey = 'book';
 
 export interface State {
-  cartItem: string[];
-  collectionItem: [];
   searchKey: string;
-  selectedBookId: string;
-  list: [];
+  selectedBook: ItemsEntity;
+  list: ItemsEntity[];
   loaded: boolean;
   error: any;
   billingDetails: null | BillingDetails;
 }
 
 export const initialState: State = {
-  cartItem: [],
-  collectionItem: [],
   searchKey: '',
-  selectedBookId: '',
+  selectedBook: null,
   list: [],
   loaded: false,
   error: null,
@@ -47,22 +46,34 @@ export const bookReducer = createReducer(
     billingDetails: data.info,
   })),
   on(bookAction.addToCart, (state, data) => {
-    if (state.cartItem.indexOf(data.id) === -1) {
-      return { ...state, cartItem: state.cartItem.concat(data.id) };
-    }
-    else{
+    {
+      console.log(data);
       return state;
     }
   }),
-  on(bookAction.addToCollection, (state) => {
-    return {
-      ...state,
-      collectionItem: [...state.collectionItem, state.selectedBookId],
-    };
-  }),
-  on(bookAction.setSelectedBookId, (state, data) => ({
+  // on(bookAction.removeFromCart, (state, data) => {
+  //   if (state?.cartItem.indexOf(data.id) !== -1) {
+  //     const newCartItem = [...state?.cartItem];
+  //     newCartItem?.splice(newCartItem.indexOf(data.id),1);
+  //     return { ...state, cartItem: newCartItem };
+  //   }
+  //   else{
+  //     return state;
+  //   }
+  // }),
+  // on(bookAction.addToCollection, (state) => {
+  //   return {
+  //     ...state,
+  //     collectionItem: [...state.collectionItem, state.selectedBookId],
+  //   };
+  // }),
+  on(bookAction.setSelectedBook, (state, data) => ({
     ...state,
-    selectedBookId: data.data,
+    selectedBook: data.data,
+  })),
+  on(bookAction.clearSelectedItem, (state, data) => ({
+    ...state,
+    selectedBook: null,
   }))
 );
 

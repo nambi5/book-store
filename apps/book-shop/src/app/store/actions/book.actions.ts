@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import {ItemsEntity} from '../../models/book-search.model'
+import {ItemsEntity} from '../../models/book-search.model';
+
 export const loadBooks = createAction(
   '[Book] Load Books',
   props<{searchTerm: string}>()
@@ -20,15 +21,24 @@ export const setSearchTerm = createAction(
   props<{ data: any }>()
 );
 
-export const setSelectedBookId = createAction(
-  '[Book] Set selected Book Id',
+export const setSelectedBook = createAction(
+  '[Book] Set selected Book',
   props<{ data: any }>()
+);
+export const clearSelectedItem = createAction(
+  '[Book] remove selected Book',
 );
 
 export const addToCart = createAction(
   '[Book] add book to cart',
-  props<{ id: any }>()
+  props<{ id: string }>()
 );
+
+export const removeFromCart = createAction(
+  '[Book] remove book from cart',
+  props<{id : string}>()
+);
+
 export const addToCollection = createAction(
   '[Book] add book to purchased List',
 );

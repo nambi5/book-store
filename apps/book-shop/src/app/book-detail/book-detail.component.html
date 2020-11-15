@@ -16,7 +16,7 @@
             <p class="m-0">{{bookDetails?.volumeInfo?.authors?.toString()}}</p>
         </div>
         <div class="example-button-row">
-            <button mat-raised-button color="primary" (click)="addIdToCart(bookDetails?.id)"
+            <button mat-raised-button color="primary" (click)="addIdToCart(bookDetails)"
              style=" margin-right: 15px;">Add to Cart</button>
             <button mat-raised-button color="primary" (click)="buyNow()">Buy Now</button>
         </div>

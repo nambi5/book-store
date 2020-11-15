@@ -1,7 +1,7 @@
 <book-store-main-menu></book-store-main-menu>
 <mat-drawer-container class="example-container">
   <mat-drawer mode="side" opened>
-    <book-store-side-nav></book-store-side-nav>
+    <book-store-side-nav cartLength="{{(asyncCartLength | async)}}"></book-store-side-nav>
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>

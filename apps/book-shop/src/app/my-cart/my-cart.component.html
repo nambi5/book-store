@@ -9,8 +9,9 @@
             <b class="m-0">Written By:</b>
             <p class="m-0">{{book?.volumeInfo?.authors?.toString()}}</p>
         </div>
+        <span class="material-icons position" (click)="removeFromCart(book?.id)"> remove_shopping_cart </span>
     </div>
-    <div class="example-button-row" >
-        <button mat-raised-button color="primary">Proceed to purchase</button>  
+    <div class="example-button-row" *ngIf="booksList?.length">
+        <button mat-raised-button color="primary" (click)="buyNow()">Proceed to purchase</button>  
     </div>
 </div>

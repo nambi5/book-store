@@ -3,8 +3,8 @@ import { HttpApiService } from '../services/http-api.service';
 import {Books, ItemsEntity} from '../models/book-search.model'
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { loadBooks, setSearchTerm, setSelectedBookId } from '../state/actions/book.actions';
-import { bookList } from '../state/selectors/book.selectors'
+import { loadBooks, setSearchTerm, setSelectedBook } from '../store/actions/book.actions';
+import { bookList } from '../store/selectors/book.selectors'
 @Component({
   selector: 'book-store-search-page',
   templateUrl: './search-page.component.html',
@@ -49,8 +49,8 @@ export class SearchPageComponent implements OnInit {
       return book?.volumeInfo?.description;
     }
   }
-  navigateToDetailsPage(id){
-    this.store.dispatch(setSelectedBookId({data:id}));
-    this.router.navigateByUrl(`/${id}`)
+  navigateToDetailsPage(book){
+    this.store.dispatch(setSelectedBook({data:book}));
+    this.router.navigateByUrl(`/${book?.id}`)
   }
 }
