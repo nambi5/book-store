@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ItemsEntity } from '../models/book-search.model';
 import { addBillingDetails, addToCollection, clearSelectedItem } from '../store/actions/book.actions';
 import { clearCartItems } from '../store/actions/cart-item.actions';
 import { addCollectionItem, addCollectionItems } from '../store/actions/collection-item.actions';
@@ -20,7 +21,7 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
     phone: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
   });
-  selectedBook: any;
+  selectedBook: ItemsEntity;
   constructor(private store: Store, private router: Router
     ) {}
 
@@ -49,7 +50,6 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
         this.store.select(cartItems).subscribe(
           (res) => {
             if(res.length){
-              console.log(res);
               this.store?.dispatch(addCollectionItems({collectionItems:res}));
               this.store?.dispatch(clearCartItems());
               this.router.navigateByUrl('collection');

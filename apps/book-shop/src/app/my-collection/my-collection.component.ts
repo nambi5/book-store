@@ -15,7 +15,6 @@ export class MyCollectionComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(collectionItems).subscribe(
       (res) =>{
-         console.log(res);
          this.booksList = res;
       }
     )
