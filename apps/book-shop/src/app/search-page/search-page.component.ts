@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpApiService } from '../services/http-api.service';
 import {Books, ItemsEntity} from '../models/book-search.model'
 import { Router } from '@angular/router';
@@ -10,36 +10,30 @@ import { bookList } from '../store/selectors/book.selectors'
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss']
 })
-export class SearchPageComponent implements OnInit {
+export class SearchPageComponent implements OnInit, OnDestroy {
   searchTerm;
-  booksList: ItemsEntity[];
+  booksList;
   constructor(
     private router: Router,
     private store: Store
   ) { }
 
   ngOnInit(): void {
-    // this.httpService.getBooks(this.searchTerm).subscribe(
-    //   (res:Books) =>{
-    //     console.log(res);
-    //     this.booksList = res.items;
-    //   }
-    // );
-    this.store.select(bookList).subscribe(
+    this.getBookList();
+  }
+  getBookList(): void{
+    this.store?.select(bookList).subscribe(
       (res) =>{
-        console.log(res);
-        if(res){
-
+        if(res && this.store){
           this.booksList = res;
         }
       }
     )
-
   }
   searchSubmit(){
     console.log(this.searchTerm);
-    this.store.dispatch(loadBooks({searchTerm: this.searchTerm}));    
-    this.store.dispatch(setSearchTerm({data:this.searchTerm}));
+    this.store?.dispatch(loadBooks({searchTerm: this.searchTerm}));    
+    this.store?.dispatch(setSearchTerm({data:this.searchTerm}));
   }
   
   getDescription(book){
@@ -50,7 +44,12 @@ export class SearchPageComponent implements OnInit {
     }
   }
   navigateToDetailsPage(book){
-    this.store.dispatch(setSelectedBook({data:book}));
+    this.store?.dispatch(setSelectedBook({data:book}));
     this.router.navigateByUrl(`/${book?.id}`)
+  }
+  ngOnDestroy(){
+    if(this.store){
+      this.store = null;
+    }
   }
 }

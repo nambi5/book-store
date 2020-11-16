@@ -45,33 +45,11 @@ export const bookReducer = createReducer(
     ...state,
     billingDetails: data.info,
   })),
-  on(bookAction.addToCart, (state, data) => {
-    {
-      console.log(data);
-      return state;
-    }
-  }),
-  // on(bookAction.removeFromCart, (state, data) => {
-  //   if (state?.cartItem.indexOf(data.id) !== -1) {
-  //     const newCartItem = [...state?.cartItem];
-  //     newCartItem?.splice(newCartItem.indexOf(data.id),1);
-  //     return { ...state, cartItem: newCartItem };
-  //   }
-  //   else{
-  //     return state;
-  //   }
-  // }),
-  // on(bookAction.addToCollection, (state) => {
-  //   return {
-  //     ...state,
-  //     collectionItem: [...state.collectionItem, state.selectedBookId],
-  //   };
-  // }),
   on(bookAction.setSelectedBook, (state, data) => ({
     ...state,
     selectedBook: data.data,
   })),
-  on(bookAction.clearSelectedItem, (state, data) => ({
+  on(bookAction.clearSelectedItem, (state) => ({
     ...state,
     selectedBook: null,
   }))

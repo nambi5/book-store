@@ -6,7 +6,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnChanges {
-  @Input() cartLength:string;
+  @Input() cartLength:number;
   constructor() { }
 
   ngOnChanges(){

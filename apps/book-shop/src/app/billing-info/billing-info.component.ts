@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ItemsEntity } from '../models/book-search.model';
-import { addBillingDetails, addToCollection, clearSelectedItem } from '../store/actions/book.actions';
+import { addBillingDetails, clearSelectedItem } from '../store/actions/book.actions';
 import { clearCartItems } from '../store/actions/cart-item.actions';
 import { addCollectionItem, addCollectionItems } from '../store/actions/collection-item.actions';
 import { selectAllCartItems } from '../store/reducers/cart-item.reducer';
@@ -26,9 +26,15 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit(): void {
+    this.getSelectedBook();
+    this.getBillingDetails();    
+  }
+  getSelectedBook(){
     this.store.select(selectedBook).subscribe(
       (res)=>this.selectedBook = res
     )
+  }
+  getBillingDetails(){
     this.store.select(userDetails).subscribe(
       (res: any)=>{
         this.billingForm.get('name').setValue(res?.name);

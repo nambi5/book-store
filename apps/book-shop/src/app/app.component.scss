@@ -136,6 +136,15 @@ summary {
   height: 75vh;
   margin: 0 10px;
   border: 1px solid #555;
+  display: flex;
+}
+.side-menu {
+  border-right: 1px solid grey;
+  min-width: 175px;
+}
+.main-content {
+  overflow-y: auto;
+  flex-basis: calc(100% - 185px);
 }
 .example-spacer {
   flex: 1 1 auto;

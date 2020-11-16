@@ -19,10 +19,7 @@ export const cartItemState: CartItemState = cartItemAdapter.getInitialState({
 export const cartItemReducer = createReducer(
   cartItemState,
   on(CartItemActions.addCartItem,
-    (state, action) =>{
-      console.log(action);
-      return cartItemAdapter.addOne(action.cartItem, state)
-    }
+    (state, action) =>cartItemAdapter.addOne(action.cartItem, state)
   ),
   on(CartItemActions.upsertCartItem,
     (state, action) => cartItemAdapter.upsertOne(action.cartItem, state)

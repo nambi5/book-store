@@ -1,12 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
 import { UiModule } from '@book-store/ui';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+
 
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +16,6 @@ import { AppComponent } from './app.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { environment } from '../environments/environment';
-import * as fromBook from './store/reducers/book.reducer';
 import { reducers, metaReducers } from './store/reducers';
 import { BookEffects } from './store/effects/book.effects';
 import { BillingInfoComponent } from './billing-info/billing-info.component';
@@ -46,11 +41,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    UiModule,
-    MatGridListModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
+    UiModule,    
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),

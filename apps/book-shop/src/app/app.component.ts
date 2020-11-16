@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { cartItemId, cartLength } from './store/selectors/book.selectors';
@@ -8,11 +8,17 @@ import { cartItemId, cartLength } from './store/selectors/book.selectors';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'book-shop';
-  asyncCartLength: Observable<number>;
+export class AppComponent implements OnInit {
+  asyncCartLength: number;
   constructor(private store: Store){
-    this.asyncCartLength = this.store.select(cartLength);
+    
+  }
+  ngOnInit(){
+    this.store.select(cartLength).subscribe(
+      (res)=>{
+        this.asyncCartLength = res;
+      }
+    );
   }
 
 }
