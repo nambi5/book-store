@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UiModule } from '@book-store/ui';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import { reducers, metaReducers } from '../store/reducers';
@@ -12,7 +13,7 @@ describe('MyCollectionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MyCollectionComponent],
-      imports: [StoreModule.forRoot(reducers, { metaReducers })],
+      imports: [StoreModule.forRoot(reducers, { metaReducers }),UiModule],
     }).compileComponents();
   });
 
@@ -41,28 +42,8 @@ describe('MyCollectionComponent', () => {
     expect(component.booksList).toEqual({ book: { id: 123 } });
   });
 
-  it('should return same description if character length is smaller than 120', () => {
-    const book = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description);
-  });
-  it('should return same description if character length is larger than 120', () => {
-    const book = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description.slice(0, 120) + '...');
-  });
   it('should open on new tab when openPreviewLink called', () => {
-    
+
     spyOn(window, 'open').and.callFake(function () {
       return true;
     });

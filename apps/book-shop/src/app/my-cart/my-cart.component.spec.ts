@@ -71,26 +71,6 @@ describe('MyCartComponent', () => {
 
     expect(dispatchSpy).toHaveBeenCalledWith(clearSelectedItem());
   });
-  it('should return same description if character length is smaller than 120', () => {
-    const book = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description);
-  });
-  it('should return same description if character length is larger than 120', () => {
-    const book = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description.slice(0,120)+"...");
-  });
   it('should remove item from cart', () => {
     const dispatchSpy = spyOn(store, 'dispatch');
     component.removeFromCart('1');

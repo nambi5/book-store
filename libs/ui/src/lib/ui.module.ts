@@ -10,6 +10,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { ItemCardComponent } from './item-card/item-card.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
     RouterModule,
   ],
-  declarations: [SideNavComponent, MainMenuComponent],
+  declarations: [SideNavComponent, MainMenuComponent, ItemCardComponent],
   exports: [
     SideNavComponent,
     MainMenuComponent,
@@ -34,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    ItemCardComponent,
   ],
 })
 export class UiModule {}

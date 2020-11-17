@@ -3,19 +3,11 @@
         <mat-label>Search Book</mat-label>
         <input matInput placeholder="Placeholder" [(ngModel)]="searchTerm" name="searchTerm">
         <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+    </mat-form-field>
 </form>
 
 <div class="flex" style="margin: 15px;">
     <div class="flex-boxes" *ngFor="let book of booksList" (click)="navigateToDetailsPage(book)">
-        <div class="field-1">
-            <h4>  {{book?.volumeInfo?.title}} </h4>
-            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
-        </div>
-        <div class="field-2">
-            <p>{{getDescription(book)}}</p>
-            <b class="m-0">Written By:</b>
-            <p class="m-0">{{book?.volumeInfo?.authors?.toString()}}</p>
-        </div>
-    </div>  
+        <book-store-item-card [cardDetails]="book" [parentType]="'search'" (clickedCard)="return"></book-store-item-card>
+    </div>
 </div>

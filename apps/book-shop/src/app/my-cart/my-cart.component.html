@@ -1,17 +1,8 @@
 <div class="flex" style="margin: 15px;">
-    <div class="flex-boxes" *ngFor="let book of booksList" >
-        <div class="field-1">
-            <h4>  {{book?.volumeInfo?.title}} </h4>
-            <img [src]="book?.volumeInfo?.imageLinks?.smallThumbnail">
-        </div>
-        <div class="field-2">
-            <p>{{getDescription(book)}}</p>
-            <b class="m-0">Written By:</b>
-            <p class="m-0">{{book?.volumeInfo?.authors?.toString()}}</p>
-        </div>
-        <span class="material-icons position" (click)="removeFromCart(book?.id)"> remove_shopping_cart </span>
+    <div class="flex-boxes" *ngFor="let book of booksList">
+        <book-store-item-card [cardDetails]="book" [parentType]="'cart'" (clickedCard)="removeFromCart($event)"></book-store-item-card>
     </div>
     <div class="example-button-row" *ngIf="booksList?.length">
-        <button mat-raised-button color="primary" (click)="buyNow()">Proceed to purchase</button>  
+        <button mat-raised-button color="primary" (click)="buyNow()">Proceed to purchase</button>
     </div>
 </div>

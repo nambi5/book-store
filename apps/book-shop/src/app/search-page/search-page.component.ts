@@ -35,13 +35,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     this.store?.dispatch(setSearchTerm({data:this.searchTerm}));
   }
   
-  getDescription(book){
-    if(book?.volumeInfo?.description?.length >120){
-      return book?.volumeInfo?.description.slice(0,120) + '...';
-    }else{
-      return book?.volumeInfo?.description;
-    }
-  }
+  
   navigateToDetailsPage(book){
     this.store?.dispatch(setSelectedBook({data:book}));
     this.router.navigateByUrl(`/${book?.id}`)

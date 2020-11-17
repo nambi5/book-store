@@ -1,0 +1,12 @@
+<div  [ngClass]="parentType">
+    <div class="field-1">
+        <h4>  {{cardDetails?.volumeInfo?.title}} </h4>
+        <img [src]="cardDetails?.volumeInfo?.imageLinks?.smallThumbnail">
+    </div>
+    <div class="field-2">
+        <p>{{getDescription(cardDetails)}}</p>
+        <b class="m-0">Written By:</b>
+        <p class="m-0">{{cardDetails?.volumeInfo?.authors?.toString()}}</p>
+    </div>
+    <span *ngIf="parentType === 'cart'" class="material-icons position" (click)="emitClickedCard(cardDetails?.id)"> remove_shopping_cart </span>
+</div>  

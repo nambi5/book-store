@@ -33,6 +33,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
 
   addIdToCart(bookDetails) {
     this.store?.dispatch(addCartItem({ cartItem: bookDetails }));
+    this.router.navigateByUrl('/');
   }
   buyNow() {
     this.router.navigateByUrl('/billingInfo');

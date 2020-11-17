@@ -26,18 +26,10 @@ export class MyCollectionComponent implements OnInit, OnDestroy {
     )
   }
 
-  getDescription(book){
-    if(book?.volumeInfo?.description?.length >120){
-      return book?.volumeInfo?.description.slice(0,120) + '...';
-    }else{
-      return book?.volumeInfo?.description;
-    }
-  }
-
   openPreviewLink(url){
     window.open(url);
   }
-  
+
   ngOnDestroy(){
     if(this.store){
       this.store = null;

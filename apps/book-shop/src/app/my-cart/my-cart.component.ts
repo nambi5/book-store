@@ -27,13 +27,6 @@ export class MyCartComponent implements OnInit, OnDestroy {
       }
     )
   }
-  getDescription(book): string{
-    if(book?.volumeInfo?.description?.length >120){
-      return book?.volumeInfo?.description.slice(0,120) + '...';
-    }else{
-      return book?.volumeInfo?.description;
-    }
-  }
   removeFromCart(id){
     this.store.dispatch(deleteCartItem({id}));
   }

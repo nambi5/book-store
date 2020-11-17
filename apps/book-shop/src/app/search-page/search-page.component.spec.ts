@@ -57,26 +57,6 @@ describe('SearchPageComponent', () => {
     component.ngOnDestroy();
     expect(component['store']).toBeNull();
   });
-  it('should return same description if character length is smaller than 120', () => {
-    const book = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description);
-  });
-  it('should return same description if character length is larger than 120', () => {
-    const book = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description.slice(0,120)+"...");
-  });
   it('should search for books on searchSubmit',()=>{
     const dispatchSpy = spyOn(store, 'dispatch');
     component.searchTerm = "test";
