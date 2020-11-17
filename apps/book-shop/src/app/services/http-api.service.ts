@@ -11,7 +11,7 @@ export class HttpApiService {
   getBooks(searchTerm: string) {
     return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`);
   }
-  getBookDetailsById(id: string){    
-    return this.http.get(`https://www.googleapis.com/books/v1/volumes/${id}`);
-  }
+  // getBookDetailsById(id: string){    
+  //   return this.http.get(`https://www.googleapis.com/books/v1/volumes/${id}`);
+  // }
 }

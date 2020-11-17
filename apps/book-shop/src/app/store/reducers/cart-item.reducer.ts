@@ -21,20 +21,8 @@ export const cartItemReducer = createReducer(
   on(CartItemActions.addCartItem,
     (state, action) =>cartItemAdapter.addOne(action.cartItem, state)
   ),
-  on(CartItemActions.upsertCartItem,
-    (state, action) => cartItemAdapter.upsertOne(action.cartItem, state)
-  ),
   on(CartItemActions.addCartItems,
     (state, action) => cartItemAdapter.addMany(action.cartItems, state)
-  ),
-  on(CartItemActions.upsertCartItems,
-    (state, action) => cartItemAdapter.upsertMany(action.cartItems, state)
-  ),
-  on(CartItemActions.updateCartItem,
-    (state, action) => cartItemAdapter.updateOne(action.cartItem, state)
-  ),
-  on(CartItemActions.updateCartItems,
-    (state, action) => cartItemAdapter.updateMany(action.cartItems, state)
   ),
   on(CartItemActions.deleteCartItem,
     (state, action) => cartItemAdapter.removeOne(action.id, state)

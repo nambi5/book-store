@@ -5,16 +5,16 @@ import { BillingInfoComponent } from './billing-info.component';
 import { reducers, metaReducers } from '../store/reducers';
 import { Router } from '@angular/router';
 import { UiModule } from '@book-store/ui';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-xdescribe('BillingInfoComponent', () => {
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { addBillingDetails } from '../store/actions/book.actions';
+import { dispatch } from 'rxjs/internal/observable/pairs';
+import { addCollectionItem, addCollectionItems } from '../store/actions/collection-item.actions';
+describe('BillingInfoComponent', () => {
   let component: BillingInfoComponent;
   let fixture: ComponentFixture<BillingInfoComponent>;
   let store: Store;
@@ -28,13 +28,11 @@ xdescribe('BillingInfoComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         UiModule,
-        MatGridListModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
+        FormsModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
       ],
-      providers: [{ provide: Router, useValue: { navigate: () => {} } },HttpClient],
+      providers: [{ provide: Router, useValue: { navigateByUrl: () => {} } },HttpClient],
     }).compileComponents();
   });
 
@@ -148,5 +146,158 @@ xdescribe('BillingInfoComponent', () => {
     spyOn(store, 'select').and.returnValue(of(dummyData));
     component.getSelectedBook();
     expect(component.selectedBook).toEqual(dummyData);
+  });
+  it('should add billing details to collection when form is valid', ()=>{
+    const dispatchSpy = spyOn(store,'dispatch');
+    const dummyValue = {name: "nambi", email: "nambi@testing.com", phone: "8870", address: "address"};
+    component.billingForm.setValue(dummyValue);
+    component.addBillingInfo();
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      addBillingDetails({info:dummyValue})
+    )
+  });
+  it('should not add billing details to collection when form is invalid', ()=>{
+    const dispatchSpy = spyOn(store,'dispatch');
+    const dummyValue = {name: "nambi", email: "nambi@testing.com", phone: "8870", address: "address"};
+    // component.billingForm.setValue(dummyValue);
+    component.addBillingInfo();
+    expect(dispatchSpy).not.toHaveBeenCalledWith(
+      addBillingDetails({info:dummyValue})
+    )
+  });
+  it('should add selected value to store collection ',()=>{
+    spyOn(component,'addSelectedItemToCollection');
+    Object.defineProperty(component.billingForm,'valid',{value:true,writable:true});
+    const dummyData = {
+      kind: 'books#volume',
+      id: 'nHnOERqf-MQC',
+      etag: 'xWK/AG8XgaM',
+      selfLink: 'https://www.googleapis.com/books/v1/volumes/nHnOERqf-MQC',
+      volumeInfo: {
+        title: 'India',
+        authors: ['Stanley A. Wolpert'],
+        publisher: 'Univ of California Press',
+        publishedDate: '1999-01-01',
+        description:
+          '"To all of us who delightedly and sometimes repetitively call ourselves Old India hands, Stanley Wolpert is the acknowledged authority. This book tells why. Indian history, art, culture, and contemporary politics are here in accurate, wide-ranging, and lucid prose."--John Kenneth Galbraith',
+        industryIdentifiers: [
+          {
+            type: 'ISBN_10',
+            identifier: '0520221729',
+          },
+          {
+            type: 'ISBN_13',
+            identifier: '9780520221727',
+          },
+        ],
+        readingModes: {
+          text: true,
+          image: true,
+        },
+        pageCount: 273,
+        printType: 'BOOK',
+        categories: ['History'],
+        averageRating: 3.5,
+        ratingsCount: 4,
+        maturityRating: 'NOT_MATURE',
+        allowAnonLogging: false,
+        contentVersion: '0.2.5.0.preview.3',
+        panelizationSummary: {
+          containsEpubBubbles: false,
+          containsImageBubbles: false,
+        },
+        imageLinks: {
+          smallThumbnail:
+            'http://books.google.com/books/content?id=nHnOERqf-MQC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+          thumbnail:
+            'http://books.google.com/books/content?id=nHnOERqf-MQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+        },
+        language: 'en',
+        previewLink:
+          'http://books.google.co.in/books?id=nHnOERqf-MQC&printsec=frontcover&dq=india&hl=&cd=3&source=gbs_api',
+        infoLink:
+          'http://books.google.co.in/books?id=nHnOERqf-MQC&dq=india&hl=&source=gbs_api',
+        canonicalVolumeLink:
+          'https://books.google.com/books/about/India.html?hl=&id=nHnOERqf-MQC',
+      },
+      saleInfo: {
+        country: 'IN',
+        saleability: 'NOT_FOR_SALE',
+        isEbook: false,
+      },
+      accessInfo: {
+        country: 'IN',
+        viewability: 'PARTIAL',
+        embeddable: true,
+        publicDomain: false,
+        textToSpeechPermission: 'ALLOWED',
+        epub: {
+          isAvailable: true,
+          acsTokenLink:
+            'http://books.google.co.in/books/download/India-sample-epub.acsm?id=nHnOERqf-MQC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api',
+        },
+        pdf: {
+          isAvailable: false,
+        },
+        webReaderLink:
+          'http://play.google.com/books/reader?id=nHnOERqf-MQC&hl=&printsec=frontcover&source=gbs_api',
+        accessViewStatus: 'SAMPLE',
+        quoteSharingAllowed: false,
+      },
+      searchInfo: {
+        textSnippet:
+          '&quot;To all of us who delightedly and sometimes repetitively call ourselves Old India hands, Stanley Wolpert is the acknowledged authority. This book tells why.',
+      },
+    };
+    component.selectedBook = dummyData;
+    component.addBillingInfo();
+    expect(component.addSelectedItemToCollection).toHaveBeenCalled();
+  })
+  it('should add selected value to store collection ',()=>{
+    spyOn(component,'addCartItemToCollection');
+    Object.defineProperty(component.billingForm,'valid',{value:true,writable:true});
+    component.addBillingInfo();
+    expect(component.addCartItemToCollection).toHaveBeenCalled()
+  })
+  it('should select cartitems and assign to collection', ()=>{
+    spyOn(component,'navigateToCollection');
+    
+    const dummyData = {
+      kind: 'books#volume',
+      id: 'nHnOERqf-MQC',
+      etag: 'xWK/AG8XgaM',
+      selfLink: 'https://www.googleapis.com/books/v1/volumes/nHnOERqf-MQC',
+    };
+    spyOn(store,'select').and.returnValue(of([dummyData]));
+    const dispatchSpy = spyOn(store, 'dispatch');
+
+    component.addCartItemToCollection();
+    expect(component.navigateToCollection).toHaveBeenCalled();
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      addCollectionItems({collectionItems:[dummyData]})
+    )
+  });
+  it('should add selected item to collection',() =>{
+    spyOn(component, 'navigateToCollection');
+    const dummyData = {
+      kind: 'books#volume',
+      id: 'nHnOERqf-MQC',
+      etag: 'xWK/AG8XgaM',
+      selfLink: 'https://www.googleapis.com/books/v1/volumes/nHnOERqf-MQC',
+    };
+    spyOn(store,'select').and.returnValue(of({...dummyData}));
+    const dispatchSpy = spyOn(store, 'dispatch');
+
+    component.addSelectedItemToCollection();
+
+    expect(component.navigateToCollection).toHaveBeenCalled();
+
+  })
+  it('should call navigatebyURl function when navigateToCollection clicked', ()=>{
+    const url = 'collection';
+    spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
+    component.navigateToCollection();
+
+    expect(router.navigateByUrl).toHaveBeenCalledWith(url);
   });
 });

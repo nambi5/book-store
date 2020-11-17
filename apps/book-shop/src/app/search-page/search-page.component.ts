@@ -31,7 +31,6 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     )
   }
   searchSubmit(){
-    console.log(this.searchTerm);
     this.store?.dispatch(loadBooks({searchTerm: this.searchTerm}));    
     this.store?.dispatch(setSearchTerm({data:this.searchTerm}));
   }

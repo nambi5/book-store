@@ -1,16 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { mergeMap } from 'rxjs/operators';
 import { ItemsEntity } from '../models/book-search.model';
-import { HttpApiService } from '../services/http-api.service';
 import {
   selectedBook,
-  selectedBookDetails,
 } from '../store/selectors/book.selectors';
-import { cartItemsFeatureKey } from '../store/reducers/cart-item.reducer';
 import { addCartItem } from '../store/actions/cart-item.actions';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'book-store-book-detail',

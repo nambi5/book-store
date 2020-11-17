@@ -49,18 +49,3 @@ export const collectionItems = createSelector(
     collectionBooks,
     selectAllCollectionItems
 )
-
-export const selectedBookDetails = createSelector(
-    bookList,
-    (state: any, props) => {
-        if(state){
-          return state.find(
-                (book) =>{
-                    if(book.id === props){
-                        return book;
-                    }
-                }
-            )
-        }
-    }
-)

@@ -27,7 +27,7 @@ export class MyCartComponent implements OnInit, OnDestroy {
       }
     )
   }
-  getDescription(book){
+  getDescription(book): string{
     if(book?.volumeInfo?.description?.length >120){
       return book?.volumeInfo?.description.slice(0,120) + '...';
     }else{
@@ -40,7 +40,6 @@ export class MyCartComponent implements OnInit, OnDestroy {
   buyNow(){
     this.store?.dispatch(clearSelectedItem());
     this.router.navigateByUrl('/billingInfo');
-    
   }
   ngOnDestroy(){
     if(this.store){

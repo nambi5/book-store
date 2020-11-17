@@ -13,6 +13,10 @@ export class MyCollectionComponent implements OnInit, OnDestroy {
   constructor(private store: Store<{collectionItemsFeatureKey: any}>) { }
 
   ngOnInit(): void {
+    this.getCollectionItems();
+  }
+
+  getCollectionItems(){
     this.store?.select(collectionItems).subscribe(
       (res) =>{
         if(this.store){
@@ -21,6 +25,7 @@ export class MyCollectionComponent implements OnInit, OnDestroy {
       }
     )
   }
+
   getDescription(book){
     if(book?.volumeInfo?.description?.length >120){
       return book?.volumeInfo?.description.slice(0,120) + '...';
@@ -28,9 +33,11 @@ export class MyCollectionComponent implements OnInit, OnDestroy {
       return book?.volumeInfo?.description;
     }
   }
+
   openPreviewLink(url){
     window.open(url);
   }
+  
   ngOnDestroy(){
     if(this.store){
       this.store = null;

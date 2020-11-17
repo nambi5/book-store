@@ -13,29 +13,9 @@ export const addCollectionItem = createAction(
   props<{ collectionItem: CollectionItem }>()
 );
 
-export const upsertCollectionItem = createAction(
-  '[CollectionItem/API] Upsert CollectionItem',
-  props<{ collectionItem: CollectionItem }>()
-);
-
 export const addCollectionItems = createAction(
   '[CollectionItem/API] Add CollectionItems',
   props<{ collectionItems: CollectionItem[] }>()
-);
-
-export const upsertCollectionItems = createAction(
-  '[CollectionItem/API] Upsert CollectionItems',
-  props<{ collectionItems: CollectionItem[] }>()
-);
-
-export const updateCollectionItem = createAction(
-  '[CollectionItem/API] Update CollectionItem',
-  props<{ collectionItem: Update<CollectionItem> }>()
-);
-
-export const updateCollectionItems = createAction(
-  '[CollectionItem/API] Update CollectionItems',
-  props<{ collectionItems: Update<CollectionItem>[] }>()
 );
 
 export const deleteCollectionItem = createAction(

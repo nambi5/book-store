@@ -21,20 +21,8 @@ export const collectionItemReducer = createReducer(
   on(CollectionItemActions.addCollectionItem,
     (state, action) => collectionItemAdapter.addOne(action.collectionItem, state)
   ),
-  on(CollectionItemActions.upsertCollectionItem,
-    (state, action) => collectionItemAdapter.upsertOne(action.collectionItem, state)
-  ),
   on(CollectionItemActions.addCollectionItems,
     (state, action) => collectionItemAdapter.addMany(action.collectionItems, state)
-  ),
-  on(CollectionItemActions.upsertCollectionItems,
-    (state, action) => collectionItemAdapter.upsertMany(action.collectionItems, state)
-  ),
-  on(CollectionItemActions.updateCollectionItem,
-    (state, action) => collectionItemAdapter.updateOne(action.collectionItem, state)
-  ),
-  on(CollectionItemActions.updateCollectionItems,
-    (state, action) => collectionItemAdapter.updateMany(action.collectionItems, state)
   ),
   on(CollectionItemActions.deleteCollectionItem,
     (state, action) => collectionItemAdapter.removeOne(action.id, state)

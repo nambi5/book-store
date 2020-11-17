@@ -18,7 +18,7 @@ export interface VolumeInfo {
   authors?: string[] | null;
   publisher: string;
   publishedDate: string;
-  description: string;
+  description?: string;
   industryIdentifiers?: IndustryIdentifiersEntity[] | null;
   readingModes: ReadingModes;
   pageCount: number;

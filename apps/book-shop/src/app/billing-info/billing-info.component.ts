@@ -37,10 +37,12 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
   getBillingDetails(){
     this.store.select(userDetails).subscribe(
       (res: any)=>{
-        this.billingForm.get('name').setValue(res?.name);
-        this.billingForm.get('email').setValue(res?.email);
-        this.billingForm.get('phone').setValue(res?.phone);
-        this.billingForm.get('address').setValue(res?.address);
+        if(res){
+          this.billingForm.get('name').setValue(res.name);
+          this.billingForm.get('email').setValue(res.email);
+          this.billingForm.get('phone').setValue(res.phone);
+          this.billingForm.get('address').setValue(res.address);
+        }
       }
     )
   }
@@ -48,22 +50,32 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
     if (this.billingForm.valid) {
       this.store.dispatch(addBillingDetails({ info: this.billingForm.value }));
       if(this.selectedBook){
-        this.store?.dispatch(addCollectionItem({collectionItem:this.selectedBook}));
-        this.store?.dispatch(clearSelectedItem());
-        this.router.navigateByUrl('collection');
+        this.addSelectedItemToCollection()
       }
       else{
-        this.store.select(cartItems).subscribe(
-          (res) => {
-            if(res.length){
-              this.store?.dispatch(addCollectionItems({collectionItems:res}));
-              this.store?.dispatch(clearCartItems());
-              this.router.navigateByUrl('collection');
-            }
-          }
-        )
+        this.addCartItemToCollection();
       }
     }
+  }
+  addCartItemToCollection() {
+    this.store.select(cartItems).subscribe(
+      (res) => {
+        if(res.length){
+          this.store?.dispatch(addCollectionItems({collectionItems:res}));
+          this.store?.dispatch(clearCartItems());
+          this.navigateToCollection();
+        }
+      }
+    )
+  }
+  addSelectedItemToCollection() {
+    this.store?.dispatch(addCollectionItem({collectionItem:this.selectedBook}));
+    this.store?.dispatch(clearSelectedItem());
+    this.navigateToCollection();
+        
+  }
+  navigateToCollection(){
+    this.router.navigateByUrl('collection');
   }
   ngOnDestroy(){
     if(this.store){

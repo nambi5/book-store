@@ -7,6 +7,7 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import * as bookAction from '../actions/book.actions';
 
 import {Books} from '../../models/book-search.model'
+import { props } from '@ngrx/store';
 
 @Injectable()
 export class BookEffects {
@@ -21,8 +22,9 @@ export class BookEffects {
           )
         )),
         catchError(
-          () => EMPTY
-          )
+          () => of(bookAction.loadBooksFailure({error:'error'}))
+          
+        )
       ))
     )
   );
