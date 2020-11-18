@@ -21,4 +21,7 @@ export class CartFacade {
   deleteCartItem(id: string){
     this.store.dispatch(cartItemAction.deleteCartItem({id}));
   }
+  clearCartItems(){
+    return this.store?.dispatch(cartItemAction.clearCartItems());
+  }
 }

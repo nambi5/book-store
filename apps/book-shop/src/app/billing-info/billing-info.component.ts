@@ -6,6 +6,9 @@ import { ItemsEntity } from '../models/book-search.model';
 import { addBillingDetails, clearSelectedItem } from '../store/actions/book.actions';
 import { clearCartItems } from '../store/actions/cart-item.actions';
 import { addCollectionItem, addCollectionItems } from '../store/actions/collection-item.actions';
+import { BookFacade } from '../store/facade/book.facade';
+import { CartFacade } from '../store/facade/cart.facade';
+import { CollectionFacade } from '../store/facade/collection.facade';
 import { selectAllCartItems } from '../store/reducers/cart-item.reducer';
 import { cartItems, selectedBook, userDetails } from '../store/selectors/book.selectors';
 
@@ -22,20 +25,34 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
     address: new FormControl('', [Validators.required]),
   });
   selectedBook: ItemsEntity;
-  constructor(private store: Store, private router: Router
+  cartItems: ItemsEntity[];
+  constructor(
+    private cartFacade:CartFacade,
+    private bookFacade:BookFacade,
+    private collectionFacade:CollectionFacade,
+     private router: Router
     ) {}
 
   ngOnInit(): void {
     this.getSelectedBook();
-    this.getBillingDetails();    
+    this.getBillingDetails();
+    this.getCartItemts();    
   }
   getSelectedBook(){
-    this.store.select(selectedBook).subscribe(
+    this.bookFacade.selectedBook$.subscribe(
       (res)=>this.selectedBook = res
     )
   }
+  getCartItemts(){
+    this.cartFacade.listCartItems$.subscribe(
+      (res:ItemsEntity[]) => {
+        if(res.length){
+          this.cartItems = res;
+        }
+      });
+  }
   getBillingDetails(){
-    this.store.select(userDetails).subscribe(
+    this.bookFacade.userDetails$.subscribe(
       (res: any)=>{
         if(res){
           this.billingForm.get('name').setValue(res.name);
@@ -48,7 +65,7 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
   }
   addBillingInfo() {
     if (this.billingForm.valid) {
-      this.store.dispatch(addBillingDetails({ info: this.billingForm.value }));
+      this.bookFacade.addBillingDetails(this.billingForm.value);
       if(this.selectedBook){
         this.addSelectedItemToCollection()
       }
@@ -57,20 +74,16 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
       }
     }
   }
-  addCartItemToCollection() {
-    this.store.select(cartItems).subscribe(
-      (res) => {
-        if(res.length){
-          this.store?.dispatch(addCollectionItems({collectionItems:res}));
-          this.store?.dispatch(clearCartItems());
-          this.navigateToCollection();
-        }
-      }
-    )
+  addCartItemToCollection() {    
+    this.collectionFacade.addItemsToCollection(this.cartItems);
+    this.cartFacade.clearCartItems();
+    this.navigateToCollection();
+        
+      
   }
   addSelectedItemToCollection() {
-    this.store?.dispatch(addCollectionItem({collectionItem:this.selectedBook}));
-    this.store?.dispatch(clearSelectedItem());
+    this.collectionFacade.addItemToCollection(this.selectedBook);
+    this.bookFacade.clearSelectedState();
     this.navigateToCollection();
         
   }
@@ -78,8 +91,8 @@ export class BillingInfoComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('collection');
   }
   ngOnDestroy(){
-    if(this.store){
-      this.store = null;
-    }
+    // if(this.store){
+    //   this.store = null;
+    // }
   }
 }

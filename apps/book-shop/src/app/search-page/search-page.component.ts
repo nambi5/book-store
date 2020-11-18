@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadBooks, setSearchTerm, setSelectedBook } from '../store/actions/book.actions';
 import { bookList } from '../store/selectors/book.selectors'
+
+import {BookFacade} from '../store/facade/book.facade';
 @Component({
   selector: 'book-store-search-page',
   templateUrl: './search-page.component.html',
@@ -15,34 +17,38 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   booksList;
   constructor(
     private router: Router,
-    private store: Store
+    // private store: Store,
+    private bookFacade:BookFacade
   ) { }
 
   ngOnInit(): void {
     this.getBookList();
   }
   getBookList(): void{
-    this.store?.select(bookList).subscribe(
+    this.bookFacade.bookList$.subscribe(
       (res) =>{
-        if(res && this.store){
+        if(res){
           this.booksList = res;
         }
       }
     )
   }
   searchSubmit(){
-    this.store?.dispatch(loadBooks({searchTerm: this.searchTerm}));    
-    this.store?.dispatch(setSearchTerm({data:this.searchTerm}));
+    this.bookFacade.lookBooks(this.searchTerm);
+    this.bookFacade.setSearchTerm(this.searchTerm);
+    // this.store?.dispatch(loadBooks({searchTerm: this.searchTerm}));    
+    // this.store?.dispatch(setSearchTerm({data:this.searchTerm}));
   }
   
   
   navigateToDetailsPage(book){
-    this.store?.dispatch(setSelectedBook({data:book}));
+    this.bookFacade.setSelectedBook(book);
+    // this.store?.dispatch(setSelectedBook({data:book}));
     this.router.navigateByUrl(`/${book?.id}`)
   }
   ngOnDestroy(){
-    if(this.store){
-      this.store = null;
-    }
+    // if(this.store){
+    //   this.store = null;
+    // }
   }
 }

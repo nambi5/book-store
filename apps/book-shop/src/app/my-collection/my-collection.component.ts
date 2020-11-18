@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { collectionItems } from '../store/selectors/book.selectors';
 import { collectionItemsFeatureKey } from '../store/reducers/collection-item.reducer';
+import { CollectionFacade } from '../store/facade/collection.facade';
 @Component({
   selector: 'book-store-my-collection',
   templateUrl: './my-collection.component.html',
@@ -10,16 +11,16 @@ import { collectionItemsFeatureKey } from '../store/reducers/collection-item.red
 export class MyCollectionComponent implements OnInit, OnDestroy {
 
   booksList: any;
-  constructor(private store: Store<{collectionItemsFeatureKey: any}>) { }
+  constructor(private collectionFacade:CollectionFacade) { }
 
   ngOnInit(): void {
     this.getCollectionItems();
   }
 
   getCollectionItems(){
-    this.store?.select(collectionItems).subscribe(
+    this.collectionFacade.collectionItemList$.subscribe(
       (res) =>{
-        if(this.store){
+        if(res){
           this.booksList = res;
         }
       }
@@ -31,8 +32,8 @@ export class MyCollectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    if(this.store){
-      this.store = null;
-    }
+    // if(this.store){
+    //   this.store = null;
+    // }
   }
 }

@@ -5,6 +5,9 @@ import { cartItems } from '../store/selectors/book.selectors';
 import {cartItemsFeatureKey} from '../store/reducers/cart-item.reducer'; 
 import { deleteCartItem } from '../store/actions/cart-item.actions';
 import { Router } from '@angular/router';
+
+import {CartFacade} from '../store/facade/cart.facade'
+import { BookFacade } from '../store/facade/book.facade';
 @Component({
   selector: 'book-store-my-cart',
   templateUrl: './my-cart.component.html',
@@ -12,31 +15,33 @@ import { Router } from '@angular/router';
 })
 export class MyCartComponent implements OnInit, OnDestroy {
   booksList: any;
-  constructor(private store: Store<{cartItemsFeatureKey: any}>,
+  constructor(
+    private cartFacade:CartFacade,
+    private bookFacade:BookFacade,
     private router: Router) { }
 
   ngOnInit(): void {
     this.getCartItems();
   }
   getCartItems(){
-    this.store?.select(cartItems).subscribe(
+    this.cartFacade.listCartItems$.subscribe(
       (res) =>{
-        if(this.store){
+        if(res){
           this.booksList = res;
         }
       }
     )
   }
   removeFromCart(id){
-    this.store.dispatch(deleteCartItem({id}));
+    this.cartFacade.deleteCartItem(id);
   }
   buyNow(){
-    this.store?.dispatch(clearSelectedItem());
+    this.bookFacade.clearSelectedState();
     this.router.navigateByUrl('/billingInfo');
   }
   ngOnDestroy(){
-    if(this.store){
-      this.store = null;
-    }
+    // if(this.store){
+    //   this.store = null;
+    // }
   }
 }
