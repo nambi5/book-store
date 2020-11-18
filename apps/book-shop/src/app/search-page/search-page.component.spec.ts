@@ -11,13 +11,12 @@ import { Store, StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from '../store/reducers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchPageComponent } from './search-page.component';
-import { loadBooks, setSearchTerm } from '../store/actions/book.actions';
-import { of } from 'rxjs';
+import { BookFacade } from '../store/facade/book.facade';
 
 describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
   let fixture: ComponentFixture<SearchPageComponent>;
-  let store: Store;
+  let bookFacade: BookFacade;
   let router: Router;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -31,14 +30,14 @@ describe('SearchPageComponent', () => {
         UiModule,
         BrowserAnimationsModule,
       ],
-      providers: [{ provide: Router, useValue: { navigateByUrl: () => {} } }],
+      providers: [{ provide: Router, useValue: { navigateByUrl: () => {} } },BookFacade],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchPageComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject(Store);
+    bookFacade = TestBed.inject(BookFacade);
     router = TestBed.inject(Router);
     fixture.detectChanges();
   });
@@ -53,24 +52,17 @@ describe('SearchPageComponent', () => {
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('/123');
   });
-  it('should set store to null onNgDestroy', () => {
-    component.ngOnDestroy();
-    expect(component['store']).toBeNull();
-  });
   it('should search for books on searchSubmit',()=>{
-    const dispatchSpy = spyOn(store, 'dispatch');
+    const dispatchSpy = spyOn(bookFacade, 'lookBooks');
     component.searchTerm = "test";
     component.searchSubmit();
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      loadBooks({searchTerm:"test"})
-    );
+    expect(dispatchSpy).toHaveBeenCalledWith("test");
+    
   })
   it('should setSearchTerm for books on searchSubmit',()=>{
-    const dispatchSpy = spyOn(store, 'dispatch');
+    const dispatchSpy = spyOn(bookFacade, 'setSearchTerm');
     component.searchTerm = "test";
     component.searchSubmit();
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      setSearchTerm({data:"test"})
-    );
+    expect(dispatchSpy).toHaveBeenCalledWith('test')
   })
 });

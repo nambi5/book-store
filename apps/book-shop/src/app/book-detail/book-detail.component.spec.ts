@@ -8,11 +8,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { UiModule } from '@book-store/ui';
 import { of } from 'rxjs';
 import { addCartItem } from '../store/actions/cart-item.actions';
+import { CartFacade } from '../store/facade/cart.facade';
+import { BookFacade } from '../store/facade/book.facade';
 describe('BookDetailComponent', () => {
   let component: BookDetailComponent;
   let fixture: ComponentFixture<BookDetailComponent>;
   let router: Router;
-  let store: Store;
+  let cartFacade: CartFacade;
+  let bookFacade: BookFacade;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [BookDetailComponent],
@@ -30,7 +33,8 @@ describe('BookDetailComponent', () => {
     fixture = TestBed.createComponent(BookDetailComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    store = TestBed.inject(Store);
+    bookFacade = TestBed.inject(BookFacade);
+    cartFacade = TestBed.inject(CartFacade);
     fixture.detectChanges();
   });
 
@@ -45,11 +49,13 @@ describe('BookDetailComponent', () => {
   });
 
   it('should load book details from getSelectedBook', ()=>{
-    spyOn(store,'select').and.returnValue(of({book:{id:123}}));
+    spyOn(bookFacade.selectedBook$, 'subscribe').and.returnValue(of({book:{id:123}}));
     fixture.detectChanges();
 
     component.getSelectedBook();
-    expect(component.bookDetails).toEqual({book:{id:123}});
+    bookFacade.selectedBook$.subscribe(()=>{
+      expect(component.bookDetails).toEqual({book:{id:123}});
+    })
   });
 
   it('should call navigatebyURl function when buynow clicked', ()=>{
@@ -60,15 +66,12 @@ describe('BookDetailComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(url);
   });
   it('should add books to cart', ()=> {
-    const dispatchSpy = spyOn(store, 'dispatch');
-    component.addIdToCart({id:''});
-    expect(dispatchSpy).toHaveBeenCalledWith(
-      addCartItem({cartItem: {id:''}} )
-    );
-
+    const dispatchSpy = spyOn(cartFacade, 'addCartItem');
+    component.addIdToCart('1');
+    expect(dispatchSpy).toHaveBeenCalledWith('1')
   })
-  it('should set store to null onNgDestroy', () => {
-    component.ngOnDestroy();
-    expect(component['store']).toBeNull();
-  });
+  // it('should set store to null onNgDestroy', () => {
+  //   component.ngOnDestroy();
+  //   expect(component['store']).toBeNull();
+  // });
 });
