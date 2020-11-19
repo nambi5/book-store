@@ -24,4 +24,13 @@ export class ItemCardComponent implements OnInit {
   emitClickedCard(id){
     this.clickedCard.emit(id);
   }
+  getTitle(cardDetails){
+    return cardDetails?.volumeInfo?.title;
+  }
+  getImage(cardDetails){
+    return cardDetails?.volumeInfo?.imageLinks?.smallThumbnail || cardDetails?.volumeInfo?.imageLinks?.thumbnail;
+  }
+  stringifyAuthorsName(cardDetails){
+    return cardDetails?.volumeInfo?.authors?.toString();
+  }
 }
