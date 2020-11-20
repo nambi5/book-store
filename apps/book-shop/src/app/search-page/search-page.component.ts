@@ -1,10 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpApiService } from '../services/http-api.service';
-import {Books, ItemsEntity} from '../models/book-search.model'
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { loadBooks, setSearchTerm, setSelectedBook } from '../store/actions/book.actions';
-import { bookList } from '../store/selectors/book.selectors'
+import { ItemsEntity } from '../models/book-search.model';
 
 import {BookFacade} from '../store/facade/book.facade';
 @Component({
@@ -12,12 +8,11 @@ import {BookFacade} from '../store/facade/book.facade';
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss']
 })
-export class SearchPageComponent implements OnInit, OnDestroy {
-  searchTerm;
-  booksList;
+export class SearchPageComponent implements OnInit {
+  searchTerm: string;
+  booksList: ItemsEntity[];
   constructor(
     private router: Router,
-    // private store: Store,
     private bookFacade:BookFacade
   ) { }
 
@@ -26,7 +21,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   }
   getBookList(): void{
     this.bookFacade.bookList$.subscribe(
-      (res) =>{
+      (res: ItemsEntity[]) =>{
         if(res){
           this.booksList = res;
         }
@@ -36,19 +31,12 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   searchSubmit(){
     this.bookFacade.lookBooks(this.searchTerm);
     this.bookFacade.setSearchTerm(this.searchTerm);
-    // this.store?.dispatch(loadBooks({searchTerm: this.searchTerm}));    
-    // this.store?.dispatch(setSearchTerm({data:this.searchTerm}));
   }
   
   
-  navigateToDetailsPage(book){
+  navigateToDetailsPage(book: ItemsEntity){
     this.bookFacade.setSelectedBook(book);
-    // this.store?.dispatch(setSelectedBook({data:book}));
     this.router.navigateByUrl(`/${book?.id}`)
   }
-  ngOnDestroy(){
-    // if(this.store){
-    //   this.store = null;
-    // }
-  }
+ 
 }

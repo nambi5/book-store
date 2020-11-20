@@ -1,23 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { ItemsEntity } from '../models/book-search.model';
-import {
-  selectedBook,
-} from '../store/selectors/book.selectors';
-import { addCartItem } from '../store/actions/cart-item.actions';
-import { CartFacade } from '../store/facade/cart.facade';
 import { BookFacade } from '../store/facade/book.facade';
-
 @Component({
   selector: 'book-store-book-detail',
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.scss'],
 })
-export class BookDetailComponent implements OnInit, OnDestroy {
+export class BookDetailComponent implements OnInit {
   bookDetails: ItemsEntity;
   constructor(
-    private cartFacade:CartFacade,
     private bookFacade:BookFacade,
     private router: Router
   ) {}
@@ -25,7 +17,7 @@ export class BookDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getSelectedBook();
   }
-  getSelectedBook() {
+  getSelectedBook() : void{
     this.bookFacade.selectedBook$.subscribe((book: ItemsEntity) => {
       if (!book?.id) {
         this.router.navigateByUrl('/');
@@ -34,16 +26,10 @@ export class BookDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  addIdToCart(bookDetails) {
-    this.cartFacade.addCartItem(bookDetails);
-    // this.router.navigateByUrl('/');
+  addIdToCart(bookDetails): void{
+    this.bookFacade.addCartItem(bookDetails);
   }
-  buyNow() {
+  buyNow(): void {
     this.router.navigateByUrl('/billingInfo');
-  }
-  ngOnDestroy() {
-    // if (this.store) {
-    //   this.store = null;
-    // }
   }
 }

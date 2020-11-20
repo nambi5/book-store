@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs';
-import { cartItemId, cartLength } from './store/selectors/book.selectors';
+import { BookFacade } from './store/facade/book.facade';
 
 @Component({
   selector: 'book-store-root',
@@ -9,16 +9,12 @@ import { cartItemId, cartLength } from './store/selectors/book.selectors';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  asyncCartLength: number;
-  constructor(private store: Store){
+  asyncCartLength: Observable<number>;
+  constructor(private bookFacade:BookFacade){
     
   }
   ngOnInit(){
-    this.store.select(cartLength).subscribe(
-      (res)=>{
-        this.asyncCartLength = res;
-      }
-    );
+    this.asyncCartLength = this.bookFacade.totalCartItemCount$;
   }
 
 }

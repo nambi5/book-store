@@ -1,7 +1,7 @@
 <book-store-main-menu></book-store-main-menu>
 <section class="example-container">
   <div class="side-menu">
-    <book-store-side-nav [cartLength]="asyncCartLength"></book-store-side-nav>
+    <book-store-side-nav cartLength="{{(asyncCartLength | async)}}"></book-store-side-nav>
   </div>
   <div class="main-content">
     <router-outlet></router-outlet>
