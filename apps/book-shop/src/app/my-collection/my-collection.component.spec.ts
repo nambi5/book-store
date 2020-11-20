@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UiModule } from '@book-store/ui';
-import { Store, StoreModule } from '@ngrx/store';
-import { of } from 'rxjs';
-import { CollectionFacade } from '../store/facade/collection.facade';
-import { reducers, metaReducers } from '../store/reducers';
 
+import { StoreModule } from '@ngrx/store';
+import { UiModule } from '@book-store/ui';
+import { of } from 'rxjs';
+
+import { BookFacade } from '../store/facade/book.facade';
+import { reducers, metaReducers } from '../store/reducers';
 import { MyCollectionComponent } from './my-collection.component';
 
 describe('MyCollectionComponent', () => {
   let component: MyCollectionComponent;
   let fixture: ComponentFixture<MyCollectionComponent>;
-  let collectionFacade: CollectionFacade;
+  let bookFacade: BookFacade;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MyCollectionComponent],
@@ -21,7 +22,7 @@ describe('MyCollectionComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MyCollectionComponent);
     component = fixture.componentInstance;
-    collectionFacade = TestBed.inject(CollectionFacade);
+    bookFacade = TestBed.inject(BookFacade);
     fixture.detectChanges();
   });
 
@@ -37,14 +38,14 @@ describe('MyCollectionComponent', () => {
 
   it('should load book details from getCollectionItems', async () => {
     const selectSpy = spyOn(
-      collectionFacade.collectionItemList$,
+      bookFacade.collectionItemList$,
       'subscribe'
     ).and.callFake(() => of({ book: { id: 123 } }));
     fixture.detectChanges();
 
     component.getCollectionItems();
     expect(selectSpy).toHaveBeenCalled();
-    collectionFacade.collectionItemList$.subscribe(() => {
+    bookFacade.collectionItemList$.subscribe(() => {
       expect(component.booksList).toEqual({ book: { id: 123 } });
     });
   });

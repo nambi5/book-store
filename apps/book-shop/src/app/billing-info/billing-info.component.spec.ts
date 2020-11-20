@@ -1,25 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Store, StoreModule } from '@ngrx/store';
-
-import { BillingInfoComponent } from './billing-info.component';
-import { reducers, metaReducers } from '../store/reducers';
-import { Router } from '@angular/router';
-import { UiModule } from '@book-store/ui';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { of } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { StoreModule } from '@ngrx/store';
+import { UiModule } from '@book-store/ui';
+import { of } from 'rxjs';
+
+import { reducers, metaReducers } from '../store/reducers';
+import { BillingInfoComponent } from './billing-info.component';
 import { BookFacade } from '../store/facade/book.facade';
-import { CartFacade } from '../store/facade/cart.facade';
-import { CollectionFacade } from '../store/facade/collection.facade';
 import { ItemsEntity } from '../models/book-search.model';
 describe('BillingInfoComponent', () => {
   let component: BillingInfoComponent;
   let fixture: ComponentFixture<BillingInfoComponent>;
-  let cartFacade: CartFacade;
-  let collectionFacade: CollectionFacade;
   let bookFacade: BookFacade;
   let router: Router;
 
@@ -43,8 +40,6 @@ describe('BillingInfoComponent', () => {
     fixture = TestBed.createComponent(BillingInfoComponent);
     component = fixture.componentInstance;
     bookFacade = TestBed.inject(BookFacade);
-    cartFacade = TestBed.inject(CartFacade);
-    collectionFacade = TestBed.inject(CollectionFacade);
     router = TestBed.inject(Router);
     fixture.detectChanges();
   });
@@ -234,7 +229,7 @@ describe('BillingInfoComponent', () => {
     };
     spyOn(bookFacade.selectedBook$, 'subscribe').and.returnValue(of([dummyData]));
     component.getCartItemts();
-    cartFacade.listCartItems$.subscribe(()=>{
+    bookFacade.listCartItems$.subscribe(()=>{
       expect(component.cartItems).toEqual([dummyData]);
     })
   });
@@ -430,7 +425,7 @@ describe('BillingInfoComponent', () => {
       },
     };
     component.cartItems = [dummyData];
-    const dispatchSpy = spyOn(collectionFacade, 'addItemsToCollection');
+    const dispatchSpy = spyOn(bookFacade, 'addItemsToCollection');
     component.addCartItemToCollection();
     expect(dispatchSpy).toHaveBeenCalledWith([dummyData]);
     expect(component.navigateToCollection).toHaveBeenCalled();
@@ -519,7 +514,7 @@ describe('BillingInfoComponent', () => {
       },
     };
     component.selectedBook = dummyData;
-    const dispatchSpy = spyOn(collectionFacade, 'addItemToCollection');
+    const dispatchSpy = spyOn(bookFacade, 'addItemToCollection');
     component.addSelectedItemToCollection();
     expect(dispatchSpy).toHaveBeenCalledWith(dummyData);
     expect(component.navigateToCollection).toHaveBeenCalled();

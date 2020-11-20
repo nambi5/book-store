@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { Store, StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from '../store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BookDetailComponent } from './book-detail.component';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+
+import { StoreModule } from '@ngrx/store';
 import { UiModule } from '@book-store/ui';
 import { of } from 'rxjs';
-import { addCartItem } from '../store/actions/cart-item.actions';
-import { CartFacade } from '../store/facade/cart.facade';
+
+import { reducers, metaReducers } from '../store/reducers';
+import { BookDetailComponent } from './book-detail.component';
 import { BookFacade } from '../store/facade/book.facade';
 describe('BookDetailComponent', () => {
   let component: BookDetailComponent;
   let fixture: ComponentFixture<BookDetailComponent>;
   let router: Router;
-  let cartFacade: CartFacade;
   let bookFacade: BookFacade;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -34,7 +33,6 @@ describe('BookDetailComponent', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     bookFacade = TestBed.inject(BookFacade);
-    cartFacade = TestBed.inject(CartFacade);
     fixture.detectChanges();
   });
 
@@ -66,12 +64,8 @@ describe('BookDetailComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(url);
   });
   it('should add books to cart', ()=> {
-    const dispatchSpy = spyOn(cartFacade, 'addCartItem');
+    const dispatchSpy = spyOn(bookFacade, 'addCartItem');
     component.addIdToCart('1');
     expect(dispatchSpy).toHaveBeenCalledWith('1')
   })
-  // it('should set store to null onNgDestroy', () => {
-  //   component.ngOnDestroy();
-  //   expect(component['store']).toBeNull();
-  // });
 });

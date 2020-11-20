@@ -6,9 +6,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { UiModule } from '@book-store/ui';
+import { BookFacade } from './store/facade/book.facade';
 describe('AppComponent', () => {  
   let app: AppComponent;
-  let store: Store;
+  let bookFacade: BookFacade;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -18,7 +19,9 @@ describe('AppComponent', () => {
       RouterTestingModule,HttpClientTestingModule,UiModule
       ],
     }).compileComponents();
-    store = TestBed.inject(Store);
+    const fixture = TestBed.createComponent(AppComponent);
+    app = fixture.componentInstance;
+    bookFacade = TestBed.inject(BookFacade);
   });
 
   it('should create the app', () => {
@@ -26,13 +29,17 @@ describe('AppComponent', () => {
     app = fixture.componentInstance;
 
     expect(app).toBeTruthy();
-    expect(store).toBeTruthy();
+    expect(bookFacade).toBeTruthy();
   });
 
   it('should get cart items total length in onInit', async() => {
-    store = TestBed.inject(Store);
-    spyOn(store, 'select').and.returnValue(of(0));
+    // bookFacade = TestBed.inject(Store);
+    spyOn(bookFacade, 'totalCartItemCount$').and.returnValue(of(1));
     app.ngOnInit();
-    expect(app.asyncCartLength).toEqual(0)
+    app.asyncCartLength.subscribe(
+      (res)=>{
+        expect(res).toEqual(1)
+      }
+    )
   })
 });

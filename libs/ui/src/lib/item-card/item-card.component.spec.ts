@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ItemsEntity } from '../models/book-search.model';
 
 import { ItemCardComponent } from './item-card.component';
 
@@ -23,29 +24,62 @@ describe('ItemCardComponent', () => {
     expect(component).toBeTruthy();
   });
   it('should return same description if character length is smaller than 120', () => {
-    const book = {
+    component.cardDetails = {
       volumeInfo: {
         description:
           'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
       },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description);
+    } as ItemsEntity;
+    const funcCall = component.getDescription();
+    expect(funcCall).toBe(component.cardDetails.volumeInfo.description);
   });
   it('should return same description if character length is larger than 120', () => {
-    const book = {
+    component.cardDetails = {
       volumeInfo: {
         description:
           'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
       },
-    };
-    const funcCall = component.getDescription(book);
-    expect(funcCall).toBe(book.volumeInfo.description.slice(0,120)+"...");
+    } as ItemsEntity;
+    const funcCall = component.getDescription();
+    expect(funcCall).toBe(component.cardDetails.volumeInfo.description.slice(0,120)+"...");
   });
 
   it('should emit id to parent on emitClickedCard click', ()=>{
     spyOn(component.clickedCard, 'emit');
     component.emitClickedCard('123');
     expect(component.clickedCard.emit).toBeCalledWith('123');
+  })
+
+  it('should get title when called getTitle',() => {
+    const title = "hello";
+    component.cardDetails = {
+      volumeInfo: {
+        title
+      },
+    } as ItemsEntity;
+    const funCall = component.getTitle();
+    expect(funCall).toBe(title);
+  })
+  it('should get image url when called getImage',() => {
+    const image = "url";
+    component.cardDetails = {
+      volumeInfo: {
+        imageLinks:{
+          thumbnail:image
+        }
+      },
+    } as ItemsEntity;
+    const funCall = component.getImage();
+    expect(funCall).toBe(image);
+  })
+  it('should get  and stringify author name when called getStringifiedAuthorsName',() => {
+    const authorname = "uzumaki,naruto";
+    component.cardDetails = {
+      volumeInfo: {
+        authors:['uzumaki','naruto']
+      },
+    } as ItemsEntity;
+    const funCall = component.getStringifiedAuthorsName();
+    expect(funCall).toBe(authorname);
   })
 });
