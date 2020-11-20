@@ -17,7 +17,6 @@ export class BookEffects {
     mergeMap((param) => this.httpApiService.getBooks(param.searchTerm)
       .pipe(
         map((books: Books) => ( 
-          // bookAction.setSearchTerm({data:param.searchTerm}),
           bookAction.loadBooksSuccess({response: books.items}
           )
         )),

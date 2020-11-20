@@ -7,7 +7,7 @@ import { HttpApiService } from '../../services/http-api.service';
 
 import { BookEffects } from './book.effects';
 import * as bookAction from '../actions/book.actions';
-import { Books } from '../../models/book-search.model';
+import { Books, ItemsEntity } from '../../models/book-search.model';
 
 describe('BookEffects', () => {
   let actions$: Observable<any>;
@@ -215,24 +215,27 @@ describe('BookEffects', () => {
     };
     actions$ = of(bookAction.loadBooks);
     const spy = spyOn(service, 'getBooks').and.returnValue(
-      of({ response: dummyData })
+      of({ ...dummyData })
     );
-    effects.loadBooks$.subscribe((action) => {
+    effects.loadBooks$.subscribe((data) => {
       expect(spy).toHaveBeenCalledTimes(1);
+      expect(data).toEqual(
+          bookAction.loadBooksSuccess({response:(dummyData.items)})
+        );
       done();
     });
   });
 
   it('loadBooks$ Failed', async (done) => {
-    const spy = spyOn(service, 'getBooks').and.throwError('Error');
+    const spy = spyOn(service, 'getBooks').and.throwError('error');
     actions$ = of(bookAction.loadBooks);
     effects.loadBooks$.subscribe(() => {
       fail('Failed');
     },
       (err) => {
-        // expect(err).toEqual(
-        //   bookAction.loadBooksFailure({error: 'Error'}).error
-        // );
+        expect(err).toEqual(
+          bookAction.loadBooksFailure({error: err}).error
+        );
         expect(spy).toHaveBeenCalledTimes(1);
         done();
       }

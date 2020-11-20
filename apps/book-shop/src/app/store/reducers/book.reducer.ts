@@ -40,6 +40,7 @@ export const bookReducer = createReducer(
   on(bookAction.setSearchTerm, (state, data) => ({
     ...state,
     searchKey: data.data,
+    loaded:false
   })),
   on(bookAction.addBillingDetails, (state, data) => ({
     ...state,
