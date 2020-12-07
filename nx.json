@@ -4,7 +4,7 @@
     "defaultBase": "master"
   },
   "implicitDependencies": {
-    "angular.json": "*",
+    "workspace.json": "*",
     "package.json": {
       "dependencies": "*",
       "devDependencies": "*"
@@ -31,6 +31,9 @@
       "implicitDependencies": ["book-shop"]
     },
     "ui": {
+      "tags": []
+    },
+    "api": {
       "tags": []
     }
   }

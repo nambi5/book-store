@@ -6,7 +6,7 @@
             </span>
         </mat-grid-tile>
         <mat-grid-tile>
-            <form [formGroup]="billingForm" (ngSubmit)="addBillingInfo()">
+            <form [formGroup]="billingForm" (ngSubmit)="addBillingInfoAndSaveItemsToCollection()">
                 <h4> Billing Details</h4>
              <mat-form-field appearance="fill">
                 <mat-label>Your Name</mat-label>

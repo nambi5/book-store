@@ -10,9 +10,9 @@ import { BookFacade } from './store/facade/book.facade';
 })
 export class AppComponent implements OnInit {
   asyncCartLength: Observable<number>;
-  constructor(private bookFacade:BookFacade){
-    
-  }
+  
+  constructor(private bookFacade:BookFacade){}
+
   ngOnInit(){
     this.asyncCartLength = this.bookFacade.totalCartItemCount$;
   }

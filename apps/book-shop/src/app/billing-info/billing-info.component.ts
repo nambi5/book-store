@@ -32,15 +32,9 @@ export class BillingInfoComponent implements OnInit {
     this.getBillingDetails();
     this.getCartItemts();
   }
+
   getSelectedBook(): void {
     this.bookFacade.selectedBook$.subscribe((res) => (this.selectedBook = res));
-  }
-  getCartItemts(): void {
-    this.bookFacade.listCartItems$.subscribe((res: ItemsEntity[]) => {
-      if (res.length) {
-        this.cartItems = res;
-      }
-    });
   }
 
   getBillingDetails(): void {
@@ -52,24 +46,30 @@ export class BillingInfoComponent implements OnInit {
         this.billingForm.get('address').setValue(res.address);
       }
     });
-  }
+  };
 
-  addBillingInfo(): void {
+  getCartItemts(): void {
+    this.bookFacade.listCartItems$.subscribe((res: ItemsEntity[]) => {
+      if (res.length) {
+        this.cartItems = res;
+      }
+    });
+  };
+
+  addBillingInfoAndSaveItemsToCollection(): void {
     if (this.billingForm.valid) {
       this.bookFacade.addBillingDetails(this.billingForm.value);
-      if (this.selectedBook) {
-        this.addSelectedItemToCollection();
-      } else {
-        this.addCartItemToCollection();
-      }
-      this.showToaster('Books added to your Collection.')
+      this.addItemsToCollectionAndShowToaster();
     }
-  }
+  };
 
-  addCartItemToCollection(): void {
-    this.bookFacade.addItemsToCollection(this.cartItems);
-    this.bookFacade.clearCartItems();
-    this.navigateToCollection();
+  addItemsToCollectionAndShowToaster(): void{
+    if (this.selectedBook) {
+      this.addSelectedItemToCollection();
+    } else {
+      this.addCartItemToCollection();
+    }
+    this.showToaster('Books added to your Collection.');
   }
 
   addSelectedItemToCollection(): void {
@@ -78,11 +78,18 @@ export class BillingInfoComponent implements OnInit {
     this.navigateToCollection();
   }
 
+  addCartItemToCollection(): void {
+    this.bookFacade.addItemsToCollection(this.cartItems);
+    this.bookFacade.clearCartItems();
+    this.navigateToCollection();
+  }
+
   showToaster(message: string) {
     this._snackBar.open(message, 'Ok', {
       duration: 2500,
     });
   }
+
   navigateToCollection(): void {
     this.router.navigateByUrl('collection');
   }

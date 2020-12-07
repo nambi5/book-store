@@ -9,7 +9,7 @@ export class HttpApiService {
   constructor(private http: HttpClient) { }
 
   getBooks(searchTerm: string) {
-    return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`);
+    return this.http.get(`http://localhost:3333/book/search/${searchTerm}`);
   }
   // getBookDetailsById(id: string){    
   //   return this.http.get(`https://www.googleapis.com/books/v1/volumes/${id}`);
