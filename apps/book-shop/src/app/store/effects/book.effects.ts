@@ -16,9 +16,8 @@ export class BookEffects {
     ofType(bookAction.loadBooks),
     mergeMap((param) => this.httpApiService.getBooks(param.searchTerm)
       .pipe(
-        map((books: Books) => ( 
-          bookAction.loadBooksSuccess({response: books.items}
-          )
+        map((books: any) => ( 
+          bookAction.loadBooksSuccess( books )
         )),
         catchError(
           () => of(bookAction.loadBooksFailure({error:'error'}))

@@ -7,32 +7,32 @@ import { ItemsEntity } from '../models/book-search.model';
   styleUrls: ['./item-card.component.scss'],
 })
 export class ItemCardComponent implements OnInit {
-  @Input() cardDetails: ItemsEntity;
+  @Input() cardDetails: any;
   @Input() parentType: 'cart' | 'collection' | 'search';
   @Output() clickedCard = new EventEmitter<string>();
   constructor() {}
 
   ngOnInit(): void {}
   getDescription(): string {
-    if (this.cardDetails?.volumeInfo?.description?.length > 120) {
-      return this.cardDetails?.volumeInfo?.description.slice(0, 120) + '...';
+    if (this.cardDetails.description?.length > 120) {
+      return this.cardDetails.description.slice(0, 120) + '...';
     } else {
-      return this.cardDetails?.volumeInfo?.description;
+      return this.cardDetails.description;
     }
   }
   emitClickedCard(id: string): void {
     this.clickedCard.emit(id);
   }
   getTitle(): string {
-    return this.cardDetails?.volumeInfo?.title;
+    return this.cardDetails.title;
   }
   getImage(): string {
     return (
-      this.cardDetails?.volumeInfo?.imageLinks?.smallThumbnail ||
-      this.cardDetails?.volumeInfo?.imageLinks?.thumbnail
+      this.cardDetails.imageLinks?.smallThumbnail ||
+      this.cardDetails.imageLinks?.thumbnail
     );
   }
   getStringifiedAuthorsName(): string {
-    return this.cardDetails?.volumeInfo?.authors?.toString();
+    return this.cardDetails.authors?.toString();
   }
 }

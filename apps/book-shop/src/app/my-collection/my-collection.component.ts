@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemsEntity } from '../models/book-search.model';
+import {ItemsEntity} from '@book-store/ui';
 import { BookFacade } from '../store/facade/book.facade';
 @Component({
   selector: 'book-store-my-collection',

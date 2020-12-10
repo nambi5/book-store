@@ -2,7 +2,7 @@ import { Component,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BookFacade } from '../store/facade/book.facade';
-import { ItemsEntity } from '../models/book-search.model';
+import {ItemsEntity} from '@book-store/ui';
 @Component({
   selector: 'book-store-my-cart',
   templateUrl: './my-cart.component.html',

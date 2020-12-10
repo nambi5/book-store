@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ItemsEntity } from '../models/book-search.model';
+import {ItemsEntity} from '@book-store/ui';
 
 import {BookFacade} from '../store/facade/book.facade';
 @Component({
