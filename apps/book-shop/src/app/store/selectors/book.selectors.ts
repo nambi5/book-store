@@ -17,6 +17,10 @@ export const bookList = createSelector(
     books,
     (state: State) => state.list
 )
+export const error = createSelector(
+    books,
+    (state:State) => state.error
+)
 export const selectedBook = createSelector(
     books,
     (state: State) => state.selectedBook

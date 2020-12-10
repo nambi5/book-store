@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { State } from '../reducers/book.reducer';
 import * as bookAction from '../actions/book.actions';
-import { bookList, collectionItems, selectedBook, userDetails } from '../selectors/book.selectors';
+import { bookList, collectionItems, error, selectedBook, userDetails } from '../selectors/book.selectors';
 
 import { cartItems, cartLength } from '../selectors/book.selectors';
 import * as cartItemAction from '../actions/cart-item.actions';
@@ -17,6 +17,7 @@ import { ItemsEntity } from '../../models/book-search.model';
 export class BookFacade {
   //Book selector
   bookList$ = this.store?.select(bookList);
+  error$ = this.store?.select(error);
   userDetails$ = this.store.select(userDetails);
   selectedBook$ = this.store?.select(selectedBook);
 

@@ -29,7 +29,7 @@ export const bookReducer = createReducer(
   on(bookAction.loadBooks, (state) => ({ ...state })),
   on(bookAction.loadBooksFailure, (state) => ({
     ...state,
-    error: 'Load Failed',
+    error: 'Something went wrong !!!',
   })),
   on(bookAction.loadBooksSuccess, (state, data: any) => ({
     ...state,
