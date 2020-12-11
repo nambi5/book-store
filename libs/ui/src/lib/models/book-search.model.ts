@@ -103,13 +103,14 @@
 export interface Book{
   id:string;
   title:string;
-  description:string;
+  description?:string | null;
   imageLinks:ImageLinks;
-  authors:string[]|null;
-  averageRating:number|null;
+  authors:string[] | null;
+  averageRating?:number | null;
   publisher:string;
   pageCount:number;
   language:string;
+  previewLink:string;
 
 }
 export interface ImageLinks {

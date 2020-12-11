@@ -2,13 +2,13 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { EMPTY, Observable, of } from 'rxjs';
+import {  Observable, of } from 'rxjs';
 import { HttpApiService } from '../../services/http-api.service';
 
 import { BookEffects } from './book.effects';
 import * as bookAction from '../actions/book.actions';
-import { Books, ItemsEntity } from '../../models/book-search.model';
 import { fakeBooksForTesting } from '../../fake-db/books';
+import { Book } from '@book-store/ui';
 
 describe('BookEffects', () => {
   let actions$: Observable<any>;
@@ -34,15 +34,15 @@ describe('BookEffects', () => {
     expect(effects).toBeTruthy();
   });
   it('loadBooks$ success', async(done) => {
-    const dummyData:Books = fakeBooksForTesting;
+    const dummyData:Book[] = fakeBooksForTesting;
     actions$ = of(bookAction.loadBooks);
     const spy = spyOn(service, 'getBooks').and.returnValue(
-      of({ ...dummyData })
+      of({response:dummyData})
     );
     effects.loadBooks$.subscribe((data) => {
       expect(spy).toHaveBeenCalledTimes(1);
       expect(data).toEqual(
-          bookAction.loadBooksSuccess({response:(dummyData.items)})
+          bookAction.loadBooksSuccess({response:dummyData})
         );
       done();
     });

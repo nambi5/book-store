@@ -6,12 +6,11 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { StoreModule } from '@ngrx/store';
-import { UiModule } from '@book-store/ui';
+import { Book, UiModule } from '@book-store/ui';
 
 import { reducers, metaReducers } from '../store/reducers';
 import { SearchPageComponent } from './search-page.component';
 import { BookFacade } from '../store/facade/book.facade';
-import { ItemsEntity } from '../models/book-search.model';
 
 describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
@@ -48,7 +47,7 @@ describe('SearchPageComponent', () => {
   it('should call navigatebyURl function when navigateToDetailsPage clicked', () => {
     const url = {id:'123'};
     spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
-    component.navigateToDetailsPage(url as ItemsEntity);
+    component.navigateToDetailsPage(url as Book);
 
     expect(router.navigateByUrl).toHaveBeenCalledWith('/123');
   });

@@ -7,13 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { StoreModule } from '@ngrx/store';
-import { UiModule } from '@book-store/ui';
+import { Book, UiModule } from '@book-store/ui';
 import { of } from 'rxjs';
 
 import { reducers, metaReducers } from '../store/reducers';
 import { BillingInfoComponent } from './billing-info.component';
 import { BookFacade } from '../store/facade/book.facade';
-import { ItemsEntity } from '../models/book-search.model';
 import { fakeBookForTesting } from '../fake-db/book';
 describe('BillingInfoComponent', () => {
   let component: BillingInfoComponent;
@@ -104,7 +103,7 @@ describe('BillingInfoComponent', () => {
   it('should select cartitems and assign to collection', ()=>{
     spyOn(component,'navigateToCollection');
     
-    const dummyData:ItemsEntity = fakeBookForTesting;
+    const dummyData:Book = fakeBookForTesting;
     component.cartItems = [dummyData];
     const dispatchSpy = spyOn(bookFacade, 'addItemsToCollection');
     component.addCartItemToCollection();
@@ -113,7 +112,7 @@ describe('BillingInfoComponent', () => {
   });
   it('should add selected item to collection',() =>{
     spyOn(component, 'navigateToCollection');
-    const dummyData:ItemsEntity = fakeBookForTesting;
+    const dummyData:Book = fakeBookForTesting;
     component.selectedBook = dummyData;
     const dispatchSpy = spyOn(bookFacade, 'addItemToCollection');
     component.addSelectedItemToCollection();

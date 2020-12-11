@@ -1,182 +1,96 @@
-import { Books } from "../models/book-search.model";
+import { Book } from '@book-store/ui';
 
-export const fakeBooksForTesting:Books = {
-    "kind": "books#volumes",
-    "totalItems": 2075,
-    "items": [
-        {
-          "kind": "books#volume",
-          "id": "KzN_RQ_0CPQC",
-          "etag": "QF8jScB4smc",
-          "selfLink": "https://www.googleapis.com/books/v1/volumes/KzN_RQ_0CPQC",
-          "volumeInfo": {
-            "title": "Mastering Autodesk 3ds Max Design 2010",
-            "authors": [
-              "Mark Gerhard",
-              "Jeffrey Harper",
-              "Jon McFarland"
-            ],
-            "publisher": "John Wiley & Sons",
-            "publishedDate": "2011-03-11",
-            "description": "The only comprehensive tutorial/reference exclusively devoted to Autodesk's robust architectural visualization software 3ds Max Design is a powerful real-time 3D design, modeling, and animation tool for architectural visualizations. This book covers all the software's crucial features, including how to simulate and analyze sun, sky, and artificial light-crucial factors for sustainable design-and how to define and assign realistic materials and work with AutoCAD and Revit files. You'll quickly learn how to get the most from this powerful software's 3D modeling, animation, and rendering capabilities. McFarland is an Autodesk Authorized Author with professional experience in creating complex visualizations for a large property development company. His real-world focus means workflows and instructions are professional and proven, and projects will include those that pros work on every day. Uses actual examples from the author's experience, including retail spaces, small offices, residential developments, and more Concise explanations, focused examples, step-by-step instructions, and hands-on tutorials teach the basics and fine points of the software Covers all the essential features, such as how to simulate and analyze sun, sky, and artificial light Demonstrates efficient use of the interface; how to work with Revit and AutoCAD files; using data, scene management, and solid modeling tools; rendering real-world surfaces; and setting up animated walkthroughs Mastering 3ds Max Design 2010 provides a practical education in using this powerful architectural visualization tool.",
-            "industryIdentifiers": [
-              {
-                "type": "ISBN_10",
-                "identifier": "1118059417"
-              },
-              {
-                "type": "ISBN_13",
-                "identifier": "9781118059418"
-              }
-            ],
-            "readingModes": {
-              "text": true,
-              "image": true
-            },
-            "pageCount": 912,
-            "printType": "BOOK",
-            "categories": [
-              "Computers"
-            ],
-            "averageRating": 4,
-            "ratingsCount": 1,
-            "maturityRating": "NOT_MATURE",
-            "allowAnonLogging": false,
-            "contentVersion": "0.7.6.0.preview.3",
-            "panelizationSummary": {
-              "containsEpubBubbles": false,
-              "containsImageBubbles": false
-            },
-            "imageLinks": {
-              "smallThumbnail": "http://books.google.com/books/content?id=KzN_RQ_0CPQC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-              "thumbnail": "http://books.google.com/books/content?id=KzN_RQ_0CPQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            },
-            "language": "en",
-            "previewLink": "http://books.google.co.in/books?id=KzN_RQ_0CPQC&pg=PA406&dq=max&hl=&cd=1&source=gbs_api",
-            "infoLink": "https://play.google.com/store/books/details?id=KzN_RQ_0CPQC&source=gbs_api",
-            "canonicalVolumeLink": "https://play.google.com/store/books/details?id=KzN_RQ_0CPQC"
-          },
-          "saleInfo": {
-            "country": "IN",
-            "saleability": "FOR_SALE",
-            "isEbook": true,
-            "listPrice": {
-              "amount": 6059.3,
-              "currencyCode": "INR"
-            },
-            "retailPrice": {
-              "amount": 6059.3,
-              "currencyCode": "INR"
-            },
-            "buyLink": "https://play.google.com/store/books/details?id=KzN_RQ_0CPQC&rdid=book-KzN_RQ_0CPQC&rdot=1&source=gbs_api",
-            "offers": [
-              {
-                "finskyOfferType": 1,
-                "listPrice": {
-                  "amountInMicros": 6059300000,
-                  "currencyCode": "INR"
-                },
-                "retailPrice": {
-                  "amountInMicros": 6059300000,
-                  "currencyCode": "INR"
-                }
-              }
-            ]
-          },
-          "accessInfo": {
-            "country": "IN",
-            "viewability": "PARTIAL",
-            "embeddable": true,
-            "publicDomain": false,
-            "textToSpeechPermission": "ALLOWED",
-            "epub": {
-              "isAvailable": true,
-              "acsTokenLink": "http://books.google.co.in/books/download/Mastering_Autodesk_3ds_Max_Design_2010-sample-epub.acsm?id=KzN_RQ_0CPQC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
-            },
-            "pdf": {
-              "isAvailable": true,
-              "acsTokenLink": "http://books.google.co.in/books/download/Mastering_Autodesk_3ds_Max_Design_2010-sample-pdf.acsm?id=KzN_RQ_0CPQC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
-            },
-            "webReaderLink": "http://play.google.com/books/reader?id=KzN_RQ_0CPQC&hl=&printsec=frontcover&source=gbs_api",
-            "accessViewStatus": "SAMPLE",
-            "quoteSharingAllowed": false
-          },
-          "searchInfo": {
-            "textSnippet": "Other Rollouts The Advanced Lighting Override rollout is used only for tweaking \u003cbr\u003e\nradiosity solutions and works the same as the Advanced Lighting Override \u003cbr\u003e\nmaterial from earlier versions of 3ds \u003cb\u003eMax\u003c/b\u003e. The SuperSampling rollout allows you \u003cbr\u003e\nto&nbsp;..."
-          }
-        },
-        {
-          "kind": "books#volume",
-          "id": "S1cBEwQvcPMC",
-          "etag": "ECiAx8pJ2Yk",
-          "selfLink": "https://www.googleapis.com/books/v1/volumes/S1cBEwQvcPMC",
-          "volumeInfo": {
-            "title": "Mastering Autodesk 3ds Max Design 2011",
-            "authors": [
-              "Mark Gerhard",
-              "Jeffrey Harper"
-            ],
-            "publisher": "John Wiley & Sons",
-            "publishedDate": "2010-07-28",
-            "industryIdentifiers": [
-              {
-                "type": "ISBN_10",
-                "identifier": "0470925590"
-              },
-              {
-                "type": "ISBN_13",
-                "identifier": "9780470925591"
-              }
-            ],
-            "readingModes": {
-              "text": true,
-              "image": true
-            },
-            "pageCount": 912,
-            "printType": "BOOK",
-            "categories": [
-              "Computers"
-            ],
-            "averageRating": 4,
-            "ratingsCount": 1,
-            "maturityRating": "NOT_MATURE",
-            "allowAnonLogging": false,
-            "contentVersion": "0.7.4.0.preview.3",
-            "imageLinks": {
-              "smallThumbnail": "http://books.google.com/books/content?id=S1cBEwQvcPMC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-              "thumbnail": "http://books.google.com/books/content?id=S1cBEwQvcPMC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-            },
-            "language": "en",
-            "previewLink": "http://books.google.co.in/books?id=S1cBEwQvcPMC&pg=PA448&dq=max&hl=&cd=2&source=gbs_api",
-            "infoLink": "http://books.google.co.in/books?id=S1cBEwQvcPMC&dq=max&hl=&source=gbs_api",
-            "canonicalVolumeLink": "https://books.google.com/books/about/Mastering_Autodesk_3ds_Max_Design_2011.html?hl=&id=S1cBEwQvcPMC"
-          },
-          "saleInfo": {
-            "country": "IN",
-            "saleability": "NOT_FOR_SALE",
-            "isEbook": false
-          },
-          "accessInfo": {
-            "country": "IN",
-            "viewability": "PARTIAL",
-            "embeddable": true,
-            "publicDomain": false,
-            "textToSpeechPermission": "ALLOWED",
-            "epub": {
-              "isAvailable": true,
-              "acsTokenLink": "http://books.google.co.in/books/download/Mastering_Autodesk_3ds_Max_Design_2011-sample-epub.acsm?id=S1cBEwQvcPMC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
-            },
-            "pdf": {
-              "isAvailable": true,
-              "acsTokenLink": "http://books.google.co.in/books/download/Mastering_Autodesk_3ds_Max_Design_2011-sample-pdf.acsm?id=S1cBEwQvcPMC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
-            },
-            "webReaderLink": "http://play.google.com/books/reader?id=S1cBEwQvcPMC&hl=&printsec=frontcover&source=gbs_api",
-            "accessViewStatus": "SAMPLE",
-            "quoteSharingAllowed": false
-          },
-          "searchInfo": {
-            "textSnippet": "Then, after checking the appearance of the materials with a test rendering, you&#39;ll \u003cbr\u003e\nlook at ways to adjust the materials to better suit your model. Before you dive in, it \u003cbr\u003e\nis important to let 3ds \u003cb\u003eMax\u003c/b\u003e know where the dependent files are that you plan to&nbsp;..."
-          }
-        }
-    ]
-  };
+export const fakeBooksForTesting: Book[] = [
+  {
+    id: 'bVHHyAs6tdwC',
+    title: 'Contemporary India',
+    description:
+      'Edited by Neera Chandhoke and Praveen Priyadarshi, Contemporary India addresses issues facing the nation-state and civil society from diverse perspectives: those of political science, sociology, economics and history. The book is thematically divided into three parts Economy, Society, and Politics and includes discussions on topics as wide-ranging as poverty, regional disparities, policies, social change and social movements, the elements of democracy, dynamics of the party system, secularism, federalism, decentralization, and so on. The common thread of democracy, which strings together different aspects of contemporary India, serves as the framework of understanding here and underlies discussions in all the chapters. The book includes 23 original, well-researched and up-to-date chapters by authors who teach different courses in the social sciences. Without compromising on the complexity of their arguments, the authors have used a lucid, conversational style that will attract even readers who have no previous knowledge of the topics. The contributors have also provided a glossary, questions and further readings lists with students examination needs in mind.',
+    imageLinks: {
+      smallThumbnail:
+        'http://books.google.com/books/content?id=bVHHyAs6tdwC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      thumbnail:
+        'http://books.google.com/books/content?id=bVHHyAs6tdwC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+    },
+    authors: ['Neera Chandhoke', 'Praveen Priyadarshi'],
+    publisher: 'Pearson Education India',
+    pageCount: 414,
+    language: 'en',
+    previewLink:
+      'http://books.google.co.in/books?id=bVHHyAs6tdwC&pg=PA16&dq=india&hl=&cd=5&source=gbs_api',
+  },
+  {
+    id: 'co2_ZqRfWikC',
+    title: 'Foreign Policy of India',
+    description:
+      'The Book Deals With All Aspects Of The Foreign Policy Of India In Detail During Different Phases. All The Events Have Been Recorded In The Chronological Order. In The Introductory Chapter The Meaning And Definition Of Foreign Policy, Its Important Contents And Elements Have Been Traced In Detail In A Simple And Lucid Manner. In The Next Chapters Various Aspects Of India S Foreign Policy Have Been Narrated Very Beautifully So As To Meet The Requirements Of The Students Of Political Science In Particular And Other Students In General. Special Importance Has Been Given For The Topic Panchsila Since It Is The Fundamental Basis Of Our Foreign Policy. The Chapter On Panchsila Provides Enormous Information To The Readers So As To Get A Clear Picture About Our Foreign Policy. Towards The End Of The Book, Role Of India In Uno And Commonwealth, India S Policy Towards Third World, India S Role In New International Economic Order (Nieo), Nuclear Policy Of India And India S Participation In Saarc Till Date Have Been Described In Detail For The Benefit Of The Students And The Common Readers.',
+    imageLinks: {
+      smallThumbnail:
+        'http://books.google.com/books/content?id=co2_ZqRfWikC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      thumbnail:
+        'http://books.google.com/books/content?id=co2_ZqRfWikC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+    },
+    authors: ['N. Jayapalan'],
+    averageRating: 4,
+    publisher: 'Atlantic Publishers & Dist',
+    pageCount: 506,
+    language: 'en',
+    previewLink:
+      'http://books.google.co.in/books?id=co2_ZqRfWikC&pg=PA33&dq=india&hl=&cd=6&source=gbs_api',
+  },
+  {
+    id: 'hjilIrVt9hUC',
+    title: 'Women in Modern India',
+    description:
+      'Through their own accounts, the author traces the history of Indian women from the nineteenth century under colonial rule to the twentieth century after Independence.',
+    imageLinks: {
+      smallThumbnail:
+        'http://books.google.com/books/content?id=hjilIrVt9hUC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      thumbnail:
+        'http://books.google.com/books/content?id=hjilIrVt9hUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+    },
+    authors: ['Geraldine Forbes', 'Geraldine Hancock Forbes'],
+    averageRating: 5,
+    publisher: 'Cambridge University Press',
+    pageCount: 290,
+    language: 'en',
+    previewLink:
+      'http://books.google.co.in/books?id=hjilIrVt9hUC&pg=PA255&dq=india&hl=&cd=8&source=gbs_api',
+  },
+  {
+    id: 'W6MAWr0zd38C',
+    title: 'Mental Retardation in India',
+    imageLinks: {
+      smallThumbnail:
+        'http://books.google.com/books/content?id=W6MAWr0zd38C&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      thumbnail:
+        'http://books.google.com/books/content?id=W6MAWr0zd38C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+    },
+    authors: ['S. Venkatesan', 'V. G. D. Vepuri'],
+    averageRating: 3.5,
+    publisher: 'Concept Publishing Company',
+    pageCount: 187,
+    language: 'en',
+    previewLink:
+      'http://books.google.co.in/books?id=W6MAWr0zd38C&pg=PA27&dq=india&hl=&cd=9&source=gbs_api',
+  },
+  {
+    id: 'U8s0aBdDxEQC',
+    title: 'The Family in India',
+    description:
+      'This collection of essays on the family in India covers a wide range of theoretical methodological, substantive and policy issues. Professor Shah s work challenges many popularly held beliefs about the family in India.',
+    imageLinks: {
+      smallThumbnail:
+        'http://books.google.com/books/content?id=U8s0aBdDxEQC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      thumbnail:
+        'http://books.google.com/books/content?id=U8s0aBdDxEQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
+    },
+    authors: ['A. M. Shah'],
+    averageRating: 3,
+    publisher: 'Orient Blackswan',
+    pageCount: 173,
+    language: 'en',
+    previewLink:
+      'http://books.google.co.in/books?id=U8s0aBdDxEQC&pg=PA52&dq=india&hl=&cd=10&source=gbs_api',
+  },
+];

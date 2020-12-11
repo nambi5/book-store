@@ -32,7 +32,7 @@ describe('Book Reducer', () => {
       const state: State = reducer(initialState, action);
   
       expect(state.loaded).toEqual(false);
-      expect(state.error).toEqual("Load Failed");
+      expect(state.error).toContain("Something went wrong");
       expect(state.list).toEqual([]);
       expect(state.billingDetails).toBeNull();
       expect(state.selectedBook).toBeNull();

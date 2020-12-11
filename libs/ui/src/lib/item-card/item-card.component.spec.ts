@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ItemsEntity } from '../models/book-search.model';
+import { Book } from '../models/book-search.model';
 
 import { ItemCardComponent } from './item-card.component';
 
@@ -9,9 +9,8 @@ describe('ItemCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemCardComponent ]
-    })
-    .compileComponents();
+      declarations: [ItemCardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -25,61 +24,53 @@ describe('ItemCardComponent', () => {
   });
   it('should return same description if character length is smaller than 120', () => {
     component.cardDetails = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    } as ItemsEntity;
+      description:
+        'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
+    } as Book;
     const funcCall = component.getDescription();
-    expect(funcCall).toBe(component.cardDetails.volumeInfo.description);
+    expect(funcCall).toBe(component.cardDetails.description);
   });
   it('should return same description if character length is larger than 120', () => {
     component.cardDetails = {
-      volumeInfo: {
-        description:
-          'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
-      },
-    } as ItemsEntity;
+      description:
+        'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',
+    } as Book;
     const funcCall = component.getDescription();
-    expect(funcCall).toBe(component.cardDetails.volumeInfo.description.slice(0,120)+"...");
+    expect(funcCall).toBe(
+      component.cardDetails.description.slice(0, 120) + '...'
+    );
   });
 
-  it('should emit id to parent on emitClickedCard click', ()=>{
+  it('should emit id to parent on emitClickedCard click', () => {
     spyOn(component.clickedCard, 'emit');
     component.emitClickedCard('123');
     expect(component.clickedCard.emit).toBeCalledWith('123');
-  })
+  });
 
-  it('should get title when called getTitle',() => {
-    const title = "hello";
+  it('should get title when called getTitle', () => {
+    const title = 'hello';
     component.cardDetails = {
-      volumeInfo: {
-        title
-      },
-    } as ItemsEntity;
+      title,
+    } as Book;
     const funCall = component.getTitle();
     expect(funCall).toBe(title);
-  })
-  it('should get image url when called getImage',() => {
-    const image = "url";
+  });
+  it('should get image url when called getImage', () => {
+    const image = 'url';
     component.cardDetails = {
-      volumeInfo: {
-        imageLinks:{
-          thumbnail:image
-        }
+      imageLinks: {
+        thumbnail: image,
       },
-    } as ItemsEntity;
+    } as Book;
     const funCall = component.getImage();
     expect(funCall).toBe(image);
-  })
-  it('should get  and stringify author name when called getStringifiedAuthorsName',() => {
-    const authorname = "uzumaki,naruto";
+  });
+  it('should get  and stringify author name when called getStringifiedAuthorsName', () => {
+    const authorname = 'uzumaki,naruto';
     component.cardDetails = {
-      volumeInfo: {
-        authors:['uzumaki','naruto']
-      },
-    } as ItemsEntity;
+      authors: ['uzumaki', 'naruto'],
+    } as Book;
     const funCall = component.getStringifiedAuthorsName();
     expect(funCall).toBe(authorname);
-  })
+  });
 });

@@ -31,7 +31,7 @@ describe('HttpApiService', () => {
       });
 
     const request = httpMock.expectOne(
-      `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`
+      `http://localhost:3333/book/search/${searchTerm}`
     );
     expect(request.request.method).toBe('GET');
     request.flush(dummyData);
