@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {ItemsEntity} from '@book-store/ui';
+import {Book} from '@book-store/ui';
 
 import {BookFacade} from '../store/facade/book.facade';
 @Component({
@@ -10,7 +10,8 @@ import {BookFacade} from '../store/facade/book.facade';
 })
 export class SearchPageComponent implements OnInit {
   searchTerm: string;
-  booksList: ItemsEntity[];
+  booksList: Book[];
+  error$ = this.bookFacade.error$;
   constructor(
     private router: Router,
     private bookFacade:BookFacade
@@ -21,7 +22,7 @@ export class SearchPageComponent implements OnInit {
   }
   getBookList(): void{
     this.bookFacade.bookList$.subscribe(
-      (res: ItemsEntity[]) =>{
+      (res: Book[]) =>{
         if(res){
           this.booksList = res;
         }
@@ -34,7 +35,7 @@ export class SearchPageComponent implements OnInit {
   }
   
   
-  navigateToDetailsPage(book: ItemsEntity){
+  navigateToDetailsPage(book: Book){
     this.bookFacade.setSelectedBook(book);
     this.router.navigateByUrl(`/${book?.id}`)
   }

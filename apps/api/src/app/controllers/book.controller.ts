@@ -1,6 +1,5 @@
 import * as request from 'request';
 import { googleBookApiBaseUrl } from '../config/env.config';
-import { ItemsEntity } from '@book-store/ui';
 
 export const getbookList = (req, res, next) => {
   request(
@@ -15,13 +14,12 @@ export const getbookList = (req, res, next) => {
         res.send({ status: 200, response: returnResult });
       } catch (error) {
         res.status(500).send({message:'Something went wrong'})
-        // next('Something went wrong');
       }
     }
   );
 };
 
-const filterBookInfo = (books: ItemsEntity[]) => {
+const filterBookInfo = (books: any[]) => {
   const essentialDataOfBooks = [];
   books.forEach((book) => {
     essentialDataOfBooks.push({
@@ -34,6 +32,7 @@ const filterBookInfo = (books: ItemsEntity[]) => {
       publisher: book.volumeInfo?.publisher,
       pageCount: book.volumeInfo?.pageCount,
       language: book.volumeInfo?.language,
+      previewLink:book.volumeInfo.previewLink
     });
   });
   return essentialDataOfBooks;

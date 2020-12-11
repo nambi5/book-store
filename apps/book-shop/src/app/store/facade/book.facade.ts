@@ -10,6 +10,7 @@ import { cartItems, cartLength } from '../selectors/book.selectors';
 import * as cartItemAction from '../actions/cart-item.actions';
 import * as collectionAction from '../actions/collection-item.actions';
 import { ItemsEntity } from '../../models/book-search.model';
+import { Book } from '@book-store/ui';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class BookFacade {
   }
 
   //Cart Facade
-  addCartItem(bookDetails:ItemsEntity){
+  addCartItem(bookDetails:Book){
     this.store?.dispatch(cartItemAction.addCartItem({ cartItem: bookDetails }));
   }
 
@@ -62,7 +63,7 @@ export class BookFacade {
   addItemsToCollection(res){
     this.store?.dispatch(collectionAction.addCollectionItems({collectionItems:res}))
   }
-  addItemToCollection(book: ItemsEntity){
+  addItemToCollection(book: Book){
     this.store?.dispatch(collectionAction.addCollectionItem({collectionItem:book}))
   }
 }

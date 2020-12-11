@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {ItemsEntity} from '@book-store/ui';
+import {Book} from '@book-store/ui';
 import { BookFacade } from '../store/facade/book.facade';
 @Component({
   selector: 'book-store-book-detail',
@@ -18,7 +18,7 @@ export class BookDetailComponent implements OnInit {
     this.getSelectedBook();
   }
   getSelectedBook() : void{
-    this.bookFacade.selectedBook$.subscribe((book: ItemsEntity) => {
+    this.bookFacade.selectedBook$.subscribe((book: Book) => {
       if (!book?.id) {
         this.router.navigateByUrl('/');
       }

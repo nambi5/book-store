@@ -1,5 +1,5 @@
 <div class="flex" style="margin: 15px;">
-    <div class="flex-boxes" *ngFor="let book of booksList" (click)="openPreviewLink(book?.volumeInfo?.previewLink)">
+    <div class="flex-boxes" *ngFor="let book of booksList" (click)="openPreviewLink(book?.previewLink)">
         <book-store-item-card [cardDetails]="book" [parentType]="'collection'" (clickedCard)="return"></book-store-item-card>
     </div>
 </div>

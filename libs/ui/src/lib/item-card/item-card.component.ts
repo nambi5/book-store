@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ItemsEntity } from '../models/book-search.model';
+import { Book } from '@book-store/ui';
 
 @Component({
   selector: 'book-store-item-card',
@@ -7,7 +7,7 @@ import { ItemsEntity } from '../models/book-search.model';
   styleUrls: ['./item-card.component.scss'],
 })
 export class ItemCardComponent implements OnInit {
-  @Input() cardDetails: any;
+  @Input() cardDetails: Book;
   @Input() parentType: 'cart' | 'collection' | 'search';
   @Output() clickedCard = new EventEmitter<string>();
   constructor() {}

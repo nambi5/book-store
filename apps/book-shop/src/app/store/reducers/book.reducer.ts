@@ -1,3 +1,4 @@
+import { Book } from '@book-store/ui';
 import { Action, createReducer, on } from '@ngrx/store';
 import { ItemsEntity } from '../../models/book-search.model';
 import { BillingDetails } from '../../models/user-details.model';
@@ -8,8 +9,8 @@ export const bookFeatureKey = 'book';
 
 export interface State {
   searchKey: string;
-  selectedBook: ItemsEntity;
-  list: ItemsEntity[];
+  selectedBook: Book;
+  list: Book[];
   loaded: boolean;
   error: any;
   billingDetails: null | BillingDetails;

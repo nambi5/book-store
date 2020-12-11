@@ -2,14 +2,14 @@ import { Component,  OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BookFacade } from '../store/facade/book.facade';
-import {ItemsEntity} from '@book-store/ui';
+import {Book} from '@book-store/ui';
 @Component({
   selector: 'book-store-my-cart',
   templateUrl: './my-cart.component.html',
   styleUrls: ['./my-cart.component.scss'],
 })
 export class MyCartComponent implements OnInit {
-  booksList: ItemsEntity[];
+  booksList: Book[];
   constructor(
     private bookFacade: BookFacade,
     private router: Router
@@ -19,7 +19,7 @@ export class MyCartComponent implements OnInit {
     this.getCartItems();
   }
   getCartItems() {
-    this.bookFacade.listCartItems$.subscribe((res: ItemsEntity[]) => {
+    this.bookFacade.listCartItems$.subscribe((res: Book[]) => {
       if (res) {
         this.booksList = res;
       }

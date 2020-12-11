@@ -6,9 +6,9 @@
     </mat-form-field>
 </form>
 
-<div class="flex" style="margin: 15px;" *ngIf="!(bookFacade.error$ | async)">
+<div class="flex" style="margin: 15px;" *ngIf="!(error$ | async)">
     <div class="flex-boxes" *ngFor="let book of booksList" (click)="navigateToDetailsPage(book)">
         <book-store-item-card [cardDetails]="book" [parentType]="'search'" (clickedCard)="return"></book-store-item-card>
     </div>
 </div>
-<p class="error" *ngIf="(bookFacade.error$ | async)">{{(bookFacade.error$ | async)}}</p>
+<p class="error" *ngIf="(error$ | async)" [innerHTML]="(error$ | async)"></p>

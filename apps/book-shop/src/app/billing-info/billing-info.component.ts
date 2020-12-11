@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ItemsEntity } from '../models/book-search.model';
 import { BookFacade } from '../store/facade/book.facade';
+import { Book } from '@book-store/ui';
 
 @Component({
   selector: 'book-store-billing-info',
@@ -19,8 +20,8 @@ export class BillingInfoComponent implements OnInit {
     phone: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
   });
-  selectedBook: ItemsEntity;
-  cartItems: ItemsEntity[];
+  selectedBook: Book;
+  cartItems: Book[];
   constructor(
     private bookFacade: BookFacade,
     private router: Router,
@@ -49,7 +50,7 @@ export class BillingInfoComponent implements OnInit {
   };
 
   getCartItemts(): void {
-    this.bookFacade.listCartItems$.subscribe((res: ItemsEntity[]) => {
+    this.bookFacade.listCartItems$.subscribe((res: Book[]) => {
       if (res.length) {
         this.cartItems = res;
       }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ItemsEntity} from '@book-store/ui';
+import {Book} from '@book-store/ui';
 import { BookFacade } from '../store/facade/book.facade';
 @Component({
   selector: 'book-store-my-collection',
@@ -7,7 +7,7 @@ import { BookFacade } from '../store/facade/book.facade';
   styleUrls: ['./my-collection.component.scss'],
 })
 export class MyCollectionComponent implements OnInit {
-  booksList: ItemsEntity[];
+  booksList: Book[];
   constructor(private bookFacade: BookFacade) {}
 
   ngOnInit(): void {
@@ -16,7 +16,7 @@ export class MyCollectionComponent implements OnInit {
 
   getCollectionItems(): void {
     this.bookFacade.collectionItemList$.subscribe(
-      (res: ItemsEntity[]) => {
+      (res: Book[]) => {
         if (res) {
           this.booksList = res;
         }
