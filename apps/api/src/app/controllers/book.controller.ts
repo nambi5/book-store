@@ -2,6 +2,10 @@ import * as request from 'request';
 import { googleBookApiBaseUrl } from '../config/env.config';
 
 export const getbookList = (req, res, next) => {
+  if(!req?.params?.searchTerm){
+    res.status(400).send('Bad request');
+    return;
+  }
   request(
     `${googleBookApiBaseUrl}/volumes?q=${req?.params?.searchTerm}`,
     (error: Error, response: any) => {

@@ -3,5 +3,6 @@ import * as book from '../controllers/book.controller';
 export const router = express.Router();
 
 router.get('/search/:searchTerm',book.getbookList);
+router.get('/search/',book.getbookList);
 // router.get('/:id',book.bookById);
 

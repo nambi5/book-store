@@ -6,7 +6,7 @@
 import * as express from 'express';
 import { router as bookRoute } from './app/routes/book.route';
 
-const app = express();
+export const app = express();
 app.get('/', (req, res) => {
   res.send({ message: 'Welcome to api!' });
 });
