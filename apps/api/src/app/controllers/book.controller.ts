@@ -1,37 +1,31 @@
-import * as request from 'request';
+const superagent = require('superagent');
 import { Book } from '@book-store/ui';
 import { googleBookApiBaseUrl } from '../config/env.config';
 
-export const requestExternalAPI = request;
-
-export const getbookList = (req, res, next) => {
+export const getbookList = (req, res) => {
   try {
     if (!req?.params?.searchTerm) {
-      throw {code:400,error:'Bad request'};
+      throw { status: 400, message: 'Bad request' };
     }
-    externalApiCall(req,res);
+    externalApiCall(req.params.searchTerm).end(
+      (error: Error, response: any) => {
+        if (error) {
+          res.status(500).send(error.message);
+          return;
+        }
+        let formattedBooks = filterBookInfo(response.body.items);
+        res.send({ status: 200, response: formattedBooks });
+      }
+    );
   } catch (error) {
-    res.status(error.code).send(error.error);
+    res.status(error.status).send(error.message);
   }
 };
 
-export const externalApiCall = (req,res) => {
-  requestExternalAPI(
-    `${googleBookApiBaseUrl}/volumes?q=${req?.params?.searchTerm}`,
-    (error: Error, response: any) => {
-      try {
-        if (error) {
-          throw {code:500,error};
-        }
-        const parsedResponse = JSON.parse(response.body);
-        const returnResult = filterBookInfo(parsedResponse.items);
-        res.send({ status: 200, response: returnResult });
-      } catch (error) {
-        throw {code:500,error};
-      }
-    }
-  );
+export const externalApiCall = (searchTerm) => {
+  return superagent.get(`${googleBookApiBaseUrl}/volumes?q=${searchTerm}`);
 };
+
 export const filterBookInfo = (books: any[]) => {
   const essentialDataOfBooks: Book[] = [];
   books.forEach((book) => {
