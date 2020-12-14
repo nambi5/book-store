@@ -1,30 +1,39 @@
 import * as request from 'request';
+import { Book } from '@book-store/ui';
 import { googleBookApiBaseUrl } from '../config/env.config';
 
+export const requestExternalAPI = request;
+
 export const getbookList = (req, res, next) => {
-  if(!req?.params?.searchTerm){
-    res.status(400).send('Bad request');
-    return;
+  try {
+    if (!req?.params?.searchTerm) {
+      throw {code:400,error:'Bad request'};
+    }
+    externalApiCall(req,res);
+  } catch (error) {
+    res.status(error.code).send(error.error);
   }
-  request(
+};
+
+export const externalApiCall = (req,res) => {
+  requestExternalAPI(
     `${googleBookApiBaseUrl}/volumes?q=${req?.params?.searchTerm}`,
     (error: Error, response: any) => {
       try {
         if (error) {
-          throw error;
+          throw {code:500,error};
         }
         const parsedResponse = JSON.parse(response.body);
         const returnResult = filterBookInfo(parsedResponse.items);
         res.send({ status: 200, response: returnResult });
       } catch (error) {
-        res.status(500).send({message:'Something went wrong'})
+        throw {code:500,error};
       }
     }
   );
 };
-
-const filterBookInfo = (books: any[]) => {
-  const essentialDataOfBooks = [];
+export const filterBookInfo = (books: any[]) => {
+  const essentialDataOfBooks: Book[] = [];
   books.forEach((book) => {
     essentialDataOfBooks.push({
       id: book.id,
@@ -36,7 +45,7 @@ const filterBookInfo = (books: any[]) => {
       publisher: book.volumeInfo?.publisher,
       pageCount: book.volumeInfo?.pageCount,
       language: book.volumeInfo?.language,
-      previewLink:book.volumeInfo.previewLink
+      previewLink: book.volumeInfo.previewLink,
     });
   });
   return essentialDataOfBooks;
